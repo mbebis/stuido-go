@@ -1,0 +1,43 @@
+{
+    "1" : {
+        "title":"Youtube Creators Studio",
+        "location":"Private",
+        "cost":"Inquire with Youtube",
+        "permit": "Yes",
+        "address": "200 Richmond Street East, Toronto, ON M5A 1P4, Canada",
+        "website": "https://www.youtube.com/yt/space/toronto/",
+        "contact": "N/A",
+        "description": "We’re so excited to welcome you to YouTube Space Toronto. We are currently working on some changes to our new slate of programming and events for this year. Please read on for more info about the opportunities and resources we will be making available soon. Click through below to stay updated about our latest changes as they're announced."
+    },
+    "2" : {
+        "title":"The Creator Class (Canon)",
+        "location":"Private",
+        "cost":"Free",
+        "permit": "No",
+        "address": "68 Claremont Street, Suite 300, Toronto, ON M6J 2M5, Canada",
+        "website": "https://thecreatorclass.com/event/co-work-2/",
+        "contact": "hello@thisisfr.ee",
+        "description": "Space for creatives to connect and work in a co-working space provided by Canon cameras."
+    },
+    "3" : {
+        "title":"East Room",
+        "location":"Private",
+        "cost":"$100 per month",
+        "permit": "No",
+        "address": "50 Carroll Street, Toronto, ON M4M 3G3, Canada",
+        "website": "https://eastroom.com/",
+        "contact": "+1(416) 628-5333 info@eastroom.ca",
+        "description": "The space allows members to develop within a diverse, hand selected group from various industries, providing a platform for the members-only network to collaborate. Has work lounges, kitchens, quiet workspaces, boardrooms."
+    },
+    "4" : {
+        "title":"Artscape Daniels Launchpad",
+        "location":"Private",
+        "cost":"$50 a month",
+        "permit": "No",
+        "address": "130 Queens Quay E 4th floor, Toronto, ON M5A 3Y5, Canada",
+        "website": "https://artscapedanielslaunchpad.com/ ",
+        "contact": "416-520-5908 launchpad@artscape.ca ",
+        "description": "A 30,000 sq. ft. creative entrepreneur hub… a place for artists, designers, and creators to work and connect."
+    }
+}
+
