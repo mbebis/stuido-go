@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		930125DBE9217A833C9219E2 /* Pods_StudioGo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B2A9F08E1DCEFC4AEDAAE4 /* Pods_StudioGo.framework */; };
 		EB434318225C0FC7005E55AE /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB434317225C0FC7005E55AE /* LocationViewController.swift */; };
+		EB463E9A2295934A00DA2625 /* GenericTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB463E992295934A00DA2625 /* GenericTableViewController.swift */; };
 		EB6281F822028089008CA480 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6281F722028089008CA480 /* AppDelegate.swift */; };
 		EB6281FF2202808B008CA480 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB6281FE2202808B008CA480 /* Assets.xcassets */; };
 		EB62820D2202808B008CA480 /* StudioGoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB62820C2202808B008CA480 /* StudioGoTests.swift */; };
@@ -17,6 +18,7 @@
 		EB62821C22028A8A008CA480 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB62821B22028A8A008CA480 /* ListViewController.swift */; };
 		EB62821E22028A93008CA480 /* MediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB62821D22028A93008CA480 /* MediaViewController.swift */; };
 		EB628220220F6972008CA480 /* MapNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB62821F220F6972008CA480 /* MapNavigationController.swift */; };
+		EB71D98C229F7E2C001C4E49 /* PostOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB71D98B229F7E2C001C4E49 /* PostOptionsView.swift */; };
 		EBD83CA3221B2ED500CBDB58 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EBD83CA2221B2ED500CBDB58 /* Launch Screen.storyboard */; };
 		EBD83CA7221B380200CBDB58 /* MarkerInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD83CA6221B380200CBDB58 /* MarkerInfoView.swift */; };
 		EBD83CAF221B48A000CBDB58 /* NavBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD83CAE221B48A000CBDB58 /* NavBarView.swift */; };
@@ -73,6 +75,7 @@
 		175C5B8284EF12D8E8624099 /* Pods-StudioGo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudioGo.release.xcconfig"; path = "Pods/Target Support Files/Pods-StudioGo/Pods-StudioGo.release.xcconfig"; sourceTree = "<group>"; };
 		617CA401E4ED5A7B7DB198AA /* Pods-StudioGo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudioGo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StudioGo/Pods-StudioGo.debug.xcconfig"; sourceTree = "<group>"; };
 		EB434317225C0FC7005E55AE /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LocationViewController.swift; path = /Users/owner/Desktop/StudioGo/studiogo/StudioGo/StudioGo/LocationViewController.swift; sourceTree = "<absolute>"; };
+		EB463E992295934A00DA2625 /* GenericTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericTableViewController.swift; sourceTree = "<group>"; };
 		EB6281F422028089008CA480 /* StudioGo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudioGo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB6281F722028089008CA480 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB6281FE2202808B008CA480 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -85,6 +88,7 @@
 		EB62821B22028A8A008CA480 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		EB62821D22028A93008CA480 /* MediaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaViewController.swift; sourceTree = "<group>"; };
 		EB62821F220F6972008CA480 /* MapNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapNavigationController.swift; sourceTree = "<group>"; };
+		EB71D98B229F7E2C001C4E49 /* PostOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostOptionsView.swift; sourceTree = "<group>"; };
 		EBD83CA2221B2ED500CBDB58 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		EBD83CA6221B380200CBDB58 /* MarkerInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerInfoView.swift; sourceTree = "<group>"; };
 		EBD83CAE221B48A000CBDB58 /* NavBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarView.swift; sourceTree = "<group>"; };
@@ -190,12 +194,14 @@
 				EB434317225C0FC7005E55AE /* LocationViewController.swift */,
 				EB62821922028A80008CA480 /* MapViewController.swift */,
 				EBD83CAE221B48A000CBDB58 /* NavBarView.swift */,
+				EB463E992295934A00DA2625 /* GenericTableViewController.swift */,
 				EBD83CB2222F49D400CBDB58 /* locations.json */,
 				EBD83CA6221B380200CBDB58 /* MarkerInfoView.swift */,
 				EBE5748F221505F500E5C9A6 /* SearchTextFieldViewController.swift */,
 				EBE5748D2213950A00E5C9A6 /* ProfileViewController.swift */,
 				EB62821B22028A8A008CA480 /* ListViewController.swift */,
 				EB62821F220F6972008CA480 /* MapNavigationController.swift */,
+				EB71D98B229F7E2C001C4E49 /* PostOptionsView.swift */,
 				EB62821D22028A93008CA480 /* MediaViewController.swift */,
 				EB628217220285DE008CA480 /* MainViewController.swift */,
 				EB6281FE2202808B008CA480 /* Assets.xcassets */,
@@ -496,6 +502,7 @@
 				EBD83CA7221B380200CBDB58 /* MarkerInfoView.swift in Sources */,
 				EB6281F822028089008CA480 /* AppDelegate.swift in Sources */,
 				EB62821E22028A93008CA480 /* MediaViewController.swift in Sources */,
+				EB71D98C229F7E2C001C4E49 /* PostOptionsView.swift in Sources */,
 				EB628220220F6972008CA480 /* MapNavigationController.swift in Sources */,
 				EB62821A22028A80008CA480 /* MapViewController.swift in Sources */,
 				EB434318225C0FC7005E55AE /* LocationViewController.swift in Sources */,
@@ -503,6 +510,7 @@
 				EBE57490221505F500E5C9A6 /* SearchTextFieldViewController.swift in Sources */,
 				EBE5748E2213950A00E5C9A6 /* ProfileViewController.swift in Sources */,
 				EB62821C22028A8A008CA480 /* ListViewController.swift in Sources */,
+				EB463E9A2295934A00DA2625 /* GenericTableViewController.swift in Sources */,
 				EB628218220285DE008CA480 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

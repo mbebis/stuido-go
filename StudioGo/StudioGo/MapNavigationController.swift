@@ -11,11 +11,18 @@ import FontAwesome_swift
 
 class MapNavigationController: UINavigationController {
 
+    private let _screenWidth = UIScreen.main.bounds.width
+    private let _screenHeight = UIScreen.main.bounds.height
+    
     let navBarObj = NavBarView()
     var navBar = UIView()
     
-    let userBtn = UIButton()
-    let editBtn = UIButton()
+    let postOptionsObj = PostOptionsView()
+    var postOptionsView = UIView()
+    
+    let mediumFont:UIFont = UIFont(name: "Roboto-Medium", size: 20)!
+    let regularFont:UIFont = UIFont(name: "Roboto-Regular", size: 14)!
+    let lightFont:UIFont = UIFont(name: "Roboto-Light", size: 12)!
     
     let studioYellowLight = UIColor.init(red: 254/255, green: 232/255, blue: 13/255, alpha: 1)
     let studioYellowDark = UIColor.init(red: 237/255, green: 196/255, blue: 41/255, alpha: 1)
@@ -27,14 +34,13 @@ class MapNavigationController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         isNavigationBarHidden = true
-        navBarColour()
         
-        let userBtn = navBarObj.createLeftButton(title: String.fontAwesomeIcon(name: .user))
-        userBtn.addTarget(self, action: #selector(pushProfile), for: UIControl.Event.touchUpInside)
-        let editBtn = navBarObj.createRightButton(title: String.fontAwesomeIcon(name: .edit))
-        editBtn.addTarget(self, action: #selector(pushProfile), for: UIControl.Event.touchUpInside)
+        postOptionsView = postOptionsObj.setupOptions()
+        self.view.addSubview(postOptionsView)
+                
+//        navBarColour()
         
-        navBar = navBarObj.createView(leftButton: userBtn, rightButton: editBtn)
+        navBar = navBarObj.createView(target: self, leftButtonAction: #selector(self.pushProfile), rightButtonAction: #selector(self.showOptions))
 
         self.view.addSubview(navBar)
         
@@ -42,21 +48,33 @@ class MapNavigationController: UINavigationController {
     }
     
     @objc func pushProfile() {
-        let transition = CATransition()
-        transition.duration = 0.5
-        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        transition.type = CATransitionType.moveIn
-        transition.subtype = CATransitionSubtype.fromBottom
-        view.layer.add(transition, forKey: nil)
-        pushViewController(ProfileViewController(), animated: false)
-        
-        navBar.removeFromSuperview()
-        let leftBtn = navBarObj.createLeftButton(title: String.fontAwesomeIcon(name: .user))
-        leftBtn.addTarget(self, action: #selector(popController), for: UIControl.Event.touchUpInside)
-        let rightBtn = navBarObj.createRightButton(title: String.fontAwesomeIcon(name: .edit))
-        rightBtn.addTarget(self, action: #selector(popController), for: UIControl.Event.touchUpInside)
-        navBar = navBarObj.createView(leftButton: userBtn, rightButton: editBtn)
-        self.view.addSubview(navBar)
+//        let transition = CATransition()
+//        transition.duration = 0.5
+//        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+//        transition.type = CATransitionType.moveIn
+//        transition.subtype = CATransitionSubtype.fromBottom
+//        view.layer.add(transition, forKey: nil)
+//        pushViewController(ProfileViewController(), animated: false)
+//        
+//        navBar.removeFromSuperview()
+//        let leftBtn = navBarObj.createLeftButton(title: String.fontAwesomeIcon(name: .user))
+//        leftBtn.addTarget(self, action: #selector(popController), for: UIControl.Event.touchUpInside)
+//        let rightBtn = navBarObj.createRightButton(title: String.fontAwesomeIcon(name: .edit))
+//        rightBtn.addTarget(self, action: #selector(popController), for: UIControl.Event.touchUpInside)
+//        navBar = navBarObj.createView(leftButton: userBtn, rightButton: editBtn)
+//        self.view.addSubview(navBar)
+    }
+    
+    @objc func showOptions() {
+        postOptionsView = postOptionsObj.showOptions()
+        navBar = navBarObj.updateTargets(target: self, leftButtonAction: #selector(popController), rightButtonAction: #selector(hideOptions))
+        print("SHOW",postOptionsView.frame)
+    }
+    
+    @objc func hideOptions() {
+        postOptionsView = postOptionsObj.hideOptions()
+        navBar = navBarObj.updateTargets(target: self, leftButtonAction: #selector(popController), rightButtonAction: #selector(showOptions))
+        print("HIDE",postOptionsView.frame)
     }
     
     @objc func popController() {
@@ -76,7 +94,6 @@ class MapNavigationController: UINavigationController {
         // Dispose of any resources that can be recreated.
     }
     
-
     /*
     // MARK: - Navigation
 

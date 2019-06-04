@@ -28,6 +28,10 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     let locations = "Locations.json"
     var markers: [Marker] = []
     
+    let mediumFont:UIFont = UIFont(name: "Roboto-Medium", size: 20)!
+    let regularFont:UIFont = UIFont(name: "Roboto-Regular", size: 14)!
+    let lightFont:UIFont = UIFont(name: "Roboto-Light", size: 12)!
+    
     let studioYellowLight = UIColor.init(red: 254/255, green: 232/255, blue: 13/255, alpha: 1)
     let studioYellowDark = UIColor.init(red: 237/255, green: 196/255, blue: 41/255, alpha: 1)
     let studioYellow = UIColor.init(red: 237/255, green: 200/255, blue: 39/255, alpha: 1)
@@ -53,6 +57,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         
         searchFieldCreate()
         filterInfoCreate()
+//        setupOptions()
     }
     
     func searchFieldCreate() {
@@ -137,14 +142,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         self.view.addSubview(filterInfo)
     }
     
-    @objc func pushProfile() {
-        self.navigationController?.pushViewController(ProfileViewController(), animated: true)
-    }
-    
-    @objc func pushMoreInfo() {
-        self.navigationController?.pushViewController(LocationViewController(), animated: true)
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -210,26 +207,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         } else {
             print("Invalid File")
         }
-//
-        
-        
-//                let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
-//                let gmsMapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height), camera: camera)
-//                gmsMapView.delegate = self
-//                gmsMapView.mapType = .normal
-//
-////         Creates a marker in the center of the map.
-//                let marker = GMSMarker()
-//                marker.position = CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20)
-//                marker.groundAnchor = .init(x: 0.5, y: 0.5)
-//                marker.title = "Sydney"
-//                marker.snippet = "Australia"
-//                let imageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: 18, height: 18))
-//                let icon = UIImage.init(named: "SmallLocationIcon")
-//                imageView.image = icon
-//                marker.iconView = imageView
-//        self.view.addSubview(gmsMapView)
-        
     }
     
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
@@ -259,13 +236,12 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, didCloseInfoWindowOf marker: GMSMarker) {
         //make markerinfoview a part of this ocntroller then just slide it in and out and update it's values
-        
         UIView.animate(withDuration: 0.2, animations: {
             marker.iconView?.transform = CGAffineTransform(scaleX: 1, y: 1);
             self.markerInfoView.frame = CGRect(x: self.markerInfoView.frame.minX, y: self._screenHeight, width: self.markerInfoView.bounds.width, height: self.markerInfoView.bounds.height)
         })
     }
-    
+        
     /*
      // MARK: - Navigation
      
@@ -275,5 +251,14 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
      // Pass the selected object to the new view controller.
      }
      */
+    
+    //All available ViewControllers to navigate to from this view
+    @objc func pushProfile() {
+        self.navigationController?.pushViewController(ProfileViewController(), animated: true)
+    }
+    
+    @objc func pushMoreInfo() {
+        self.navigationController?.pushViewController(LocationViewController(), animated: true)
+    }
     
 }

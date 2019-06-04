@@ -20,6 +20,9 @@ class NavBarView: UIView {
     
     let iconSize = CGSize.init(width: 54, height: 50)
     
+    var leftButton = UIButton()
+    var rightButton = UIButton()
+    
     func createLeftButton(title: String?) -> UIButton {
         let leftButton = UIButton.init(frame: CGRect.init(x: 22, y: 28, width: 32, height: 32))
         leftButton.titleLabel?.font = UIFont.fontAwesome(ofSize: 28, style: .regular)
@@ -34,13 +37,28 @@ class NavBarView: UIView {
         return rightButton
     }
     
+//    @objc func showOptions() {
+//        MapNavigationController().showOptions()
+//    }
+//
+//    @objc func hideOptions() {
+//        MapNavigationController().hideOptions()
+//    }
+//
+//    @objc func pushProfile() {
+//        MapNavigationController().pushProfile()
+//    }
     
-    func createView(leftButton: UIButton, rightButton: UIButton) -> UIView {
+    func createView(target: UIViewController, leftButtonAction: Selector, rightButtonAction: Selector) -> UIView {
         self.frame = CGRect.init(x: 0, y: 0, width: _screenWidth, height: 72)
         self.backgroundColor = studioYellow
         self.isHidden = false
         self.tintColor = studioYellow
 
+        self.leftButton = createLeftButton(title: String.fontAwesomeIcon(name: .user))
+        self.rightButton = createRightButton(title: String.fontAwesomeIcon(name: .edit))
+        leftButton.addTarget(target, action: leftButtonAction, for: UIControl.Event.touchUpInside)
+        rightButton.addTarget(target, action: rightButtonAction, for: UIControl.Event.touchUpInside)
         self.addSubview(leftButton)
         self.addSubview(rightButton)
         
@@ -52,6 +70,14 @@ class NavBarView: UIView {
         return self
     }
 
+    func updateTargets(target: UIViewController, leftButtonAction: Selector, rightButtonAction: Selector) -> UIView {
+        leftButton.removeTarget(nil, action: nil, for: .allEvents)
+        rightButton.removeTarget(nil, action: nil, for: .allEvents)
+        leftButton.addTarget(target, action: leftButtonAction, for: UIControl.Event.touchUpInside)
+        rightButton.addTarget(target, action: rightButtonAction, for: UIControl.Event.touchUpInside)
+        
+        return self
+    }
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.

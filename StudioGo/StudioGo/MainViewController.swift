@@ -23,22 +23,23 @@ class MainViewController: UITabBarController {
     let studioYellow = UIColor.init(red: 237/255, green: 200/255, blue: 39/255, alpha: 1)
     let studioPink = UIColor.init(red: 240/255, green: 89/255, blue: 153/255, alpha: 1)
 
-    let iconSize = CGSize.init(width: 40, height: 36)
+    let iconSize = CGSize.init(width: 48, height: 43.2)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let mapViewController = MapViewController()
-        mapViewController.tabBarItem.image = UIImage.fontAwesomeIcon(name: .map, style: .regular, textColor: studioPink, size: iconSize)
+        
+        mapViewController.tabBarItem.image = UIImage.init(named: "PinIcon")
         mapViewController.tabBarItem.imageInsets = UIEdgeInsets(top: 6,left: 0,bottom: -6,right: 0)
         
 //        UITabBarItem.appearance()
         let mediaViewController = MediaViewController()
-                mediaViewController.tabBarItem.image = UIImage.fontAwesomeIcon(name: .images, style: .regular, textColor: studioPink, size: iconSize)
+                mediaViewController.tabBarItem.image = UIImage.fontAwesomeIcon(name: .playCircle, style: .regular, textColor: studioPink, size: iconSize)
         mediaViewController.tabBarItem.imageInsets = UIEdgeInsets(top: 6,left: 0,bottom: -6,right: 0)
 
         let listViewControllers = ListViewController()
-        listViewControllers.tabBarItem.image = UIImage.fontAwesomeIcon(name: .listAlt, style: .regular, textColor: studioPink, size: iconSize)
+        listViewControllers.tabBarItem.image = UIImage.fontAwesomeIcon(name: .envelope, style: .regular, textColor: studioPink, size: iconSize)
         listViewControllers.tabBarItem.imageInsets = UIEdgeInsets(top: 6,left: 0,bottom: -6,right: 0)
 
        
