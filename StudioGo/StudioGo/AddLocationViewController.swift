@@ -1,22 +1,28 @@
 //
-//  ProfileViewController.swift
+//  AddLocationViewController.swift
 //  StudioGo
 //
-//  Created by Owner on 2/12/19.
+//  Created by Owner on 6/5/19.
 //  Copyright © 2019 Studio Go. All rights reserved.
 //
 
 import UIKit
 
-class ProfileViewController: UIViewController {
-        
+class AddLocationViewController: UIViewController {
+    
+    let addLocationViewObj = AddLocationView()
+    var addLocationView = UIView()
+    
     override func viewDidLoad() {
-        
         super.viewDidLoad()
+        hideKeyboardWhenTappedAround()
+        
+        addLocationView = self.addLocationViewObj.setupView()
+        
+        self.view = addLocationView
 
         // Do any additional setup after loading the view.
     }
-    
 
     /*
     // MARK: - Navigation

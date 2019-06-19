@@ -11,8 +11,8 @@ import SwiftyJSON
 
 class MarkerInfoView: UIView {
     
-    private let _screenWidth = UIScreen.main.bounds.width
-    private let _screenHeight = UIScreen.main.bounds.height
+    private let _screenWidth = GlobalConstants.screenWidth
+    private let _screenHeight = GlobalConstants.screenHeight
     
     let markerInfoView = self
     

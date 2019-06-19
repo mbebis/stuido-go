@@ -11,40 +11,45 @@ import FontAwesome_swift
 
 class PostOptionsView: UIView {
     
-    private let _screenWidth = UIScreen.main.bounds.width
-    private let _screenHeight = UIScreen.main.bounds.height
+    private let _screenWidth = GlobalConstants.screenWidth
+    private let _screenHeight = GlobalConstants.screenHeight
     
-    let mediumFont:UIFont = UIFont(name: "Roboto-Medium", size: 20)!
-    let regularFont:UIFont = UIFont(name: "Roboto-Regular", size: 14)!
-    let lightFont:UIFont = UIFont(name: "Roboto-Light", size: 12)!
+    private let mediumFont:UIFont = GlobalConstants.mediumFont
+    private let regularFont:UIFont = GlobalConstants.regularFont
+    private let lightFont:UIFont = GlobalConstants.lightFont
     
-    let studioYellow = UIColor.init(red: 237/255, green: 200/255, blue: 39/255, alpha: 1)
-    let studioPink = UIColor.init(red: 240/255, green: 89/255, blue: 153/255, alpha: 1)
-    let studioGrey = UIColor.init(red: 70/255, green: 71/255, blue: 73/255, alpha: 1)
+    private let studioYellow = GlobalConstants.studioYellow
     
     let optionsView = UIView()
     let overlay = UIView()
     
-    func setupOptions() -> UIView {
-                
+    func setupOptions(navController: UINavigationController, addLocationAction: Selector, portfolioPost: Selector) -> UIView {
+        
+        let frame = CGRect.init(x: 0, y: 0, width: 0, height: 0)
+        self.frame = frame
+        
         let overlayFrame = CGRect.init(x: 0, y: 0, width: _screenWidth, height: _screenHeight)
         overlay.frame = overlayFrame
         let overlayBtn = UIButton(frame: overlayFrame)
         overlay.backgroundColor = UIColor.init(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.0)
         overlay.addSubview(overlayBtn)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(pushAddLocationVC))
+        overlay.addGestureRecognizer(tap)
+        
         self.addSubview(overlay)
         
         let buttonWidth: CGFloat = Screen.width*(2/3)
         let buttonHeight: CGFloat = 36
         let buttonSpacing: CGFloat = 12
         
-        //        let optionsViewFrame = CGRect.init(x: _screenWidth/2-buttonWidth/2, y: 500, width: buttonWidth, height: buttonHeight*2+buttonSpacing)
         let optionsViewFrame = CGRect.init(x: _screenWidth/2-buttonWidth/2, y: _screenHeight, width: buttonWidth, height: buttonHeight*2+buttonSpacing)
+//        let optionsViewFrame = CGRect.init(x: _screenWidth/2-buttonWidth/2, y: 500, width: buttonWidth, height: (buttonHeight*2)+buttonSpacing)
         optionsView.frame = optionsViewFrame
         
-        let addLocationBtn = optionButton(text: "ADD LOCATION", y: 0, width: buttonWidth, height: buttonHeight)
+        let addLocationBtn = optionButton(text: "ADD LOCATION", navController: navController, action: addLocationAction, y: 0, width: buttonWidth, height: buttonHeight)
         optionsView.addSubview(addLocationBtn)
-        let createPostBtn = optionButton(text: "PORTFOLIO POST", y: (optionsView.subviews.last?.frame.maxY)!+buttonSpacing, width: buttonWidth, height: buttonHeight)
+        let createPostBtn = optionButton(text: "PORTFOLIO POST", navController: navController, action: addLocationAction, y: (optionsView.subviews.last?.frame.maxY)!+buttonSpacing, width: buttonWidth, height: buttonHeight)
         optionsView.addSubview(createPostBtn)
 
         self.addSubview(optionsView)
@@ -61,20 +66,24 @@ class PostOptionsView: UIView {
         btn.titleLabel?.font = UIFont.fontAwesome(ofSize: btn.frame.width-8, style: style)
         btn.setTitle(icon, for: UIControl.State.normal)
         btn.setTitleColor(.white, for: .normal)
+        btn.isUserInteractionEnabled = true
         
         return btn
     }
     
-    func optionButton(text: String, y: CGFloat, width: CGFloat, height: CGFloat) -> UIButton {
+    func optionButton(text: String, navController: UINavigationController, action: Selector, y: CGFloat, width: CGFloat, height: CGFloat) -> UIButton {
         let buttonCornerRadius: CGFloat = height/2
         
-        let btn = UIButton.init(frame: CGRect.init(x: 0, y: y, width:  width, height: height))
+        let btn = UIButton.init(frame: CGRect.init(x: 0, y: y, width: width, height: height))
         btn.backgroundColor = .white
         btn.layer.cornerRadius = buttonCornerRadius
         btn.setTitle(text, for: UIControl.State.normal)
         btn.setTitleColor(studioYellow, for: .normal)
         btn.titleLabel!.font = regularFont
-        //        btn.titleLabel?.text = text
+        
+//        btn.addTarget(navController, action: action, for: UIControl.Event.touchUpInside)
+        btn.addTarget(navController, action: action, for: UIControl.Event.touchUpInside)
+
         return btn
     }
     
@@ -82,10 +91,13 @@ class PostOptionsView: UIView {
         let buttonWidth: CGFloat = Screen.width*(2/3)
         let buttonHeight: CGFloat = 36
         let buttonSpacing: CGFloat = 12
-        
-        let optionsViewFrame = CGRect.init(x: _screenWidth/2-buttonWidth/2, y: 500, width: buttonWidth, height: buttonHeight*2+buttonSpacing)
-        optionsView.frame = optionsViewFrame
-        overlay.backgroundColor = UIColor.init(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.3)
+        UIView.animate(withDuration: 0.2, animations: {
+            let optionsViewFrame = CGRect.init(x: self._screenWidth/2-buttonWidth/2, y: 500, width: buttonWidth, height: buttonHeight*2+buttonSpacing)
+            self.optionsView.frame = optionsViewFrame
+            self.overlay.backgroundColor = UIColor.init(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.3)
+            let frame = CGRect.init(x: 0, y: 0, width: self._screenWidth, height: self._screenHeight)
+            self.frame = frame
+        })
         return self
     }
     
@@ -94,10 +106,18 @@ class PostOptionsView: UIView {
         let buttonHeight: CGFloat = 36
         let buttonSpacing: CGFloat = 12
         
-        let optionsViewFrame = CGRect.init(x: _screenWidth/2-buttonWidth/2, y: _screenHeight, width: buttonWidth, height: buttonHeight*2+buttonSpacing)
-        optionsView.frame = optionsViewFrame
-        overlay.backgroundColor = UIColor.init(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.0)
+        UIView.animate(withDuration: 0.2, animations: {
+            let optionsViewFrame = CGRect.init(x: self._screenWidth/2-buttonWidth/2, y: self._screenHeight, width: buttonWidth, height: buttonHeight*2+buttonSpacing)
+            self.optionsView.frame = optionsViewFrame
+            self.overlay.backgroundColor = UIColor.init(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.0)
+            let frame = CGRect.init(x: 0, y: 0, width: 0, height: 0)
+            self.frame = frame
+        })
         return self
+    }
+    
+    @objc func pushAddLocationVC() {
+        print("WORKING")
     }
     
     /*

@@ -39,7 +39,24 @@
 	</array>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Roboto-Black.ttfRoboto-BlackItalic.ttfRoboto-Bold.ttfRoboto-BoldItalic.ttfRoboto-Italic.ttfRoboto-Light.ttfRoboto-LightItalic.ttfRoboto-Medium.ttfRoboto-MediumItalic.ttfRoboto-Regular.ttfRoboto-Thin.ttfRoboto-ThinItalic.ttfRobotoCondensed-Bold.ttfRobotoCondensed-BoldItalic.ttfRobotoCondensed-Italic.ttfRobotoCondensed-Light.ttfRobotoCondensed-LightItalic.ttfRobotoCondensed-Regular.ttf</string>
+		<string>Roboto-Black.ttf
+Roboto-BlackItalic.ttf
+Roboto-Bold.ttf
+Roboto-BoldItalic.ttf
+Roboto-Italic.ttf
+Roboto-Light.ttf
+Roboto-LightItalic.ttf
+Roboto-Medium.ttf
+Roboto-MediumItalic.ttf
+Roboto-Regular.ttf
+Roboto-Thin.ttf
+Roboto-ThinItalic.ttf
+RobotoCondensed-Bold.ttf
+RobotoCondensed-BoldItalic.ttf
+RobotoCondensed-Italic.ttf
+RobotoCondensed-Light.ttf
+RobotoCondensed-LightItalic.ttf
+RobotoCondensed-Regular.ttf</string>
 		<string>Roboto-BlackItalic.ttf</string>
 		<string>Roboto-Bold.ttf</string>
 		<string>Roboto-BoldItalic.ttf</string>
@@ -57,6 +74,24 @@
 		<string>RobotoCondensed-Light.ttf</string>
 		<string>RobotoCondensed-LightItalic.ttf</string>
 		<string>RobotoCondensed-Regular.ttf</string>
+		<string>Montserrat-Black.ttfMontserrat-BlackItalic.ttfMontserrat-Bold.ttfMontserrat-BoldItalic.ttfMontserrat-ExtraBold.ttfMontserrat-ExtraBoldItalic.ttfMontserrat-ExtraLight.ttfMontserrat-ExtraLightItalic.ttfMontserrat-Italic.ttfMontserrat-Light.ttfMontserrat-LightItalic.ttfMontserrat-Medium.ttfMontserrat-MediumItalic.ttfMontserrat-Regular.ttfMontserrat-SemiBold.ttfMontserrat-SemiBoldItalic.ttfMontserrat-Thin.ttfMontserrat-ThinItalic.ttf</string>
+		<string>Montserrat-BlackItalic.ttf</string>
+		<string>Montserrat-Bold.ttf</string>
+		<string>Montserrat-BoldItalic.ttf</string>
+		<string>Montserrat-ExtraBold.ttf</string>
+		<string>Montserrat-ExtraBoldItalic.ttf</string>
+		<string>Montserrat-ExtraLight.ttf</string>
+		<string>Montserrat-ExtraLightItalic.ttf</string>
+		<string>Montserrat-Italic.ttf</string>
+		<string>Montserrat-Light.ttf</string>
+		<string>Montserrat-LightItalic.ttf</string>
+		<string>Montserrat-Medium.ttf</string>
+		<string>Montserrat-MediumItalic.ttf</string>
+		<string>Montserrat-Regular.ttf</string>
+		<string>Montserrat-SemiBold.ttf</string>
+		<string>Montserrat-SemiBoldItalic.ttf</string>
+		<string>Montserrat-Thin.ttf</string>
+		<string>Montserrat-ThinItalic.ttf</string>
 	</array>
 </dict>
 </plist>

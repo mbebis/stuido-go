@@ -27,15 +27,14 @@ class LocationViewController: UIViewController {
         }
     }
     
-    let statusBarHeight:CGFloat = UIApplication.shared.statusBarFrame.height
+    private let statusBarHeight:CGFloat = UIApplication.shared.statusBarFrame.height
     
-    let mediumFont:UIFont = UIFont(name: "Roboto-Medium", size: 20)!
-    let regularFont:UIFont = UIFont(name: "Roboto-Regular", size: 14)!
-    let lightFont:UIFont = UIFont(name: "Roboto-Light", size: 12)!
+    private let mediumFont:UIFont = GlobalConstants.mediumFont
+    private let regularFont:UIFont = GlobalConstants.regularFont
+    private let lightFont:UIFont = GlobalConstants.lightFont
 
-    let studioYellow = UIColor.init(red: 237/255, green: 200/255, blue: 39/255, alpha: 1)
-    let studioPink = UIColor.init(red: 240/255, green: 89/255, blue: 153/255, alpha: 1)
-    let studioGrey = UIColor.init(red: 70/255, green: 71/255, blue: 73/255, alpha: 1)
+    private let studioYellow = GlobalConstants.studioYellow
+    private let studioGrey = GlobalConstants.studioGrey
     
     let scrollView = UIScrollView()
     //    frame: CGRect.init(x: 0, y: 72, width: Screen.width, height: Screen.height)
@@ -90,9 +89,9 @@ class LocationViewController: UIViewController {
         let labelHeight: CGFloat = 14
         let labelPadding: CGFloat = 6
         
-        let locationTypeLabel = titleLabel(frame: CGRect.init(x: screenXCenter-labelWidth/2, y: 12, width: labelWidth, height: largeLabelHeight), text: "PUBLIC LOCATION", align: .center, font: lightFont)
+        let locationTypeLabel = titleLabel(frame: CGRect.init(x: screenXCenter-labelWidth/2, y: 12, width: labelWidth, height: largeLabelHeight), text: "P U B L I C  L O C A T I O N", align: .center, font: lightFont)
         infoPane.addSubview(locationTypeLabel)
-        let locationLabel = titleLabel(frame: CGRect.init(x: screenXCenter-labelWidth/2, y: locationTypeLabel.frame.maxY+4, width: labelWidth, height: largeLabelHeight), text: "GRAFFITI ALLEY", align: .center, font: mediumFont)
+        let locationLabel = titleLabel(frame: CGRect.init(x: screenXCenter-labelWidth/2, y: locationTypeLabel.frame.maxY+4, width: labelWidth, height: largeLabelHeight), text: "G R A F F I T I  A L L E Y", align: .center, font: mediumFont)
         infoPane.addSubview(locationLabel)
         let addressLabel = titleLabel(frame: CGRect.init(x: screenXCenter-labelWidth/2, y: locationLabel.frame.maxY+4, width: labelWidth, height: labelHeight), text: "TORONTO, ON", align: .center, font: lightFont)
         infoPane.addSubview(addressLabel)

@@ -18,10 +18,8 @@ class MainViewController: UITabBarController {
     
     let layerGradient = CAGradientLayer()
 
-    let studioYellowLight = UIColor.init(red: 254/255, green: 232/255, blue: 13/255, alpha: 1)
-    let studioYellowDark = UIColor.init(red: 237/255, green: 196/255, blue: 41/255, alpha: 1)
-    let studioYellow = UIColor.init(red: 237/255, green: 200/255, blue: 39/255, alpha: 1)
-    let studioPink = UIColor.init(red: 240/255, green: 89/255, blue: 153/255, alpha: 1)
+    let studioYellow = GlobalConstants.studioYellow
+    let studioPink = GlobalConstants.studioPink
 
     let iconSize = CGSize.init(width: 48, height: 43.2)
     
@@ -38,12 +36,12 @@ class MainViewController: UITabBarController {
                 mediaViewController.tabBarItem.image = UIImage.fontAwesomeIcon(name: .playCircle, style: .regular, textColor: studioPink, size: iconSize)
         mediaViewController.tabBarItem.imageInsets = UIEdgeInsets(top: 6,left: 0,bottom: -6,right: 0)
 
-        let listViewControllers = ListViewController()
-        listViewControllers.tabBarItem.image = UIImage.fontAwesomeIcon(name: .envelope, style: .regular, textColor: studioPink, size: iconSize)
-        listViewControllers.tabBarItem.imageInsets = UIEdgeInsets(top: 6,left: 0,bottom: -6,right: 0)
+        let listViewController = ListViewController()
+        listViewController.tabBarItem.image = UIImage.fontAwesomeIcon(name: .envelope, style: .regular, textColor: studioPink, size: iconSize)
+        listViewController.tabBarItem.imageInsets = UIEdgeInsets(top: 6,left: 0,bottom: -6,right: 0)
 
        
-        let viewControllerList = [ mapViewController, mediaViewController, listViewControllers ]
+        let viewControllerList = [ mapViewController, mediaViewController, listViewController ]
         viewControllers = viewControllerList.map { MapNavigationController(rootViewController: $0)}
         tabBarColour()
         tabbarHeight()

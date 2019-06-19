@@ -10,13 +10,10 @@ import UIKit
 
 class NavBarView: UIView {
 
-    private let _screenWidth = UIScreen.main.bounds.width
-    private let _screenHeight = UIScreen.main.bounds.height
+    private let _screenWidth = GlobalConstants.screenWidth
+    private let _screenHeight = GlobalConstants.screenHeight
     
-    let studioYellowLight = UIColor.init(red: 254/255, green: 232/255, blue: 13/255, alpha: 1)
-    let studioYellowDark = UIColor.init(red: 237/255, green: 196/255, blue: 41/255, alpha: 1)
-    let studioYellow = UIColor.init(red: 237/255, green: 200/255, blue: 39/255, alpha: 1)
-    let studioPink = UIColor.init(red: 240/255, green: 89/255, blue: 153/255, alpha: 1)
+    private let studioYellow = GlobalConstants.studioYellow
     
     let iconSize = CGSize.init(width: 54, height: 50)
     

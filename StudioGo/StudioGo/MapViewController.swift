@@ -22,25 +22,17 @@ struct Marker: MarkerInfo {
 
 class MapViewController: UIViewController, GMSMapViewDelegate {
     
-    private let _screenWidth = UIScreen.main.bounds.width
-    private let _screenHeight = UIScreen.main.bounds.height
+    let _screenWidth = GlobalConstants.screenWidth
+    let _screenHeight = GlobalConstants.screenHeight
+    
+//    let camera = GMSCameraPosition.camera(withLatitude: 0, longitude: 0, zoom: 6.0)
+    let gmsMapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 0, width: GlobalConstants.screenWidth, height: GlobalConstants.screenHeight), camera: GMSCameraPosition.camera(withLatitude: 0, longitude: 0, zoom: 6.0))
+    let geoCoder = CLGeocoder()
     
     let locations = "Locations.json"
     var markers: [Marker] = []
     
-    let mediumFont:UIFont = UIFont(name: "Roboto-Medium", size: 20)!
-    let regularFont:UIFont = UIFont(name: "Roboto-Regular", size: 14)!
-    let lightFont:UIFont = UIFont(name: "Roboto-Light", size: 12)!
-    
-    let studioYellowLight = UIColor.init(red: 254/255, green: 232/255, blue: 13/255, alpha: 1)
-    let studioYellowDark = UIColor.init(red: 237/255, green: 196/255, blue: 41/255, alpha: 1)
-    let studioYellow = UIColor.init(red: 237/255, green: 200/255, blue: 39/255, alpha: 1)
-    let studioPink = UIColor.init(red: 240/255, green: 89/255, blue: 153/255, alpha: 1)
-    
     let iconSize = CGSize.init(width: 54, height: 50)
-    
-    let attributes = [NSAttributedString.Key.font: UIFont.fontAwesome(ofSize: 20, style: .regular)]
-    let attributes2 = [NSAttributedString.Key.font: UIFont.fontAwesome(ofSize: 20, style: .regular)]
     
     let searchField =  UITextField()
     let filterInfo = UIView()
@@ -149,8 +141,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     
     func mapSetup() {
         
-        let camera = GMSCameraPosition.camera(withLatitude: 0, longitude: 0, zoom: 6.0)
-        let gmsMapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height), camera: camera)
         gmsMapView.delegate = self
         gmsMapView.mapType = .normal
         self.view.addSubview(gmsMapView)
@@ -160,7 +150,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
                 let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .alwaysMapped)
                 let jsonObj = try JSON(data: data)
 
-                let geoCoder = CLGeocoder()
                 geoCoder.geocodeAddressString(jsonObj["1"]["address"].string!) { (placemarks, error) in
                     guard
                         let placemarks = placemarks,
@@ -170,11 +159,10 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
                             return
                     }
 
-                    gmsMapView.camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude, longitude: location.coordinate.longitude, zoom: 6.0)
+                    self.gmsMapView.camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude, longitude: location.coordinate.longitude, zoom: 6.0)
                     
                     for (index,subJson):(String, JSON) in jsonObj {
-                        let geoCoder = CLGeocoder()
-                        geoCoder.geocodeAddressString(jsonObj[index]["address"].string!) { (placemarks, error) in
+                        self.geoCoder.geocodeAddressString(jsonObj[index]["address"].string!) { (placemarks, error) in
                             guard
                                 let placemarks = placemarks,
                                 let location = placemarks.first?.location
@@ -193,12 +181,13 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
                             imageView.image = icon
                             marker.iconView = imageView
 
-                            marker.map = gmsMapView
+                            marker.map = self.gmsMapView
 
                             self.markers.append(Marker(marker: marker, dataJson: subJson))
                         }
                         print(index)
                     }
+                    self.addLocation(address: "23 Regency View Heights, Maple, ON L6A3T9, Canada")
                 }
             } catch {
                 // handle error
@@ -241,16 +230,37 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
             self.markerInfoView.frame = CGRect(x: self.markerInfoView.frame.minX, y: self._screenHeight, width: self.markerInfoView.bounds.width, height: self.markerInfoView.bounds.height)
         })
     }
+    
+    func addLocation(address: String) {
+        let json: JSON = JSON([ "title" : "Ben", "location" : "Private", "cost" : "benji", "permit":"Yes", "address":"23 Regency View Heights, Maple, ON L6A3T9, Canada", "website": "home.com", "contact": "hello@thisisfr.ee","description":"Home"])
+
+        let geoCoder = CLGeocoder()
+        geoCoder.geocodeAddressString(address) { (placemarks, error) in
+            guard
+                let placemarks = placemarks,
+                let location = placemarks.first?.location
+                else {
+                    // handle no location found
+                    return
+            }
+            
+            let marker = GMSMarker()
+            marker.position = location.coordinate
+            marker.groundAnchor = .init(x: 0.5, y: 0.5)
+            marker.title = address
+            //                        marker.snippet = "Australia"
+            let imageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: 18, height: 18))
+            let icon = UIImage.init(named: "SmallLocationIcon")
+            imageView.image = icon
+            marker.iconView = imageView
+            
+            marker.map = self.gmsMapView
+            
+            self.markers.append(Marker(marker: marker, dataJson: json))
         
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
+        }
+    }
+        
     
     //All available ViewControllers to navigate to from this view
     @objc func pushProfile() {
