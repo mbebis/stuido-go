@@ -12,7 +12,8 @@ class SearchTextFieldViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+//have this control the search bar?
+        
         // Do any additional setup after loading the view.
     }
     

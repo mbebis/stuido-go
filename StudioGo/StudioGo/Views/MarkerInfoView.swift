@@ -142,7 +142,10 @@ class MarkerInfoView: UIView {
     }
     
     func cutUrl(url: String) -> String {
-        return String(url.split(separator: "/", maxSplits: 2, omittingEmptySubsequences: true)[1])
+        if (url.contains("/")) {
+            return String(url.split(separator: "/", maxSplits: 2, omittingEmptySubsequences: true)[1])
+        }
+        return url
     }
     
 }

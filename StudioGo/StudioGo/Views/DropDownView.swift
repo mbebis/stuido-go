@@ -23,9 +23,9 @@ class DropDownView: UIView {
     private let studioYellow = GlobalConstants.studioYellow
     private let studioLightGrey = GlobalConstants.studioLightGrey
     
-    let padding:CGFloat = 10
-    let extraPadding:CGFloat = 4
-    let singleLineHeight:CGFloat = 32
+    let padding:CGFloat = 6
+    let extraPadding:CGFloat = 3
+    let singleLineHeight:CGFloat = 28
     
     var textField = UITextField()
     let tableContainer = UIView()
@@ -33,11 +33,13 @@ class DropDownView: UIView {
     
     var btnField = UIButton()
     let yesNoContainer = UIView()
-    var yesBtn = UIButton()
-    var noBtn = UIButton()
+    var optionsBtns:[UIButton]
+//    var yesBtn = UIButton()
+//    var noBtn = UIButton()
     
     init(items: [String]) {
         self.items = items
+        self.optionsBtns = Array.init(repeating: UIButton(), count: self.items.count-1)
         super.init(frame: CGRect.init(x: 0, y: 0, width: 0, height: 0))
     }
 
@@ -74,16 +76,20 @@ class DropDownView: UIView {
     func dropDownView() {
         let dropDownY:CGFloat = textField.frame.maxY
 
-        yesNoContainer.frame = CGRect.init(x: 0, y: dropDownY, width: _screenWidth/2-padding*2, height: 0)
+        yesNoContainer.frame = CGRect.init(x: 0, y: dropDownY, width: _screenWidth/2-padding, height: 0)
         yesNoContainer.backgroundColor = .white
         yesNoContainer.clipsToBounds = true
         
-        yesBtn = dropDownButton(text: self.items[1], y: 0)
-        yesNoContainer.addSubview(yesBtn)
-        
-        noBtn = dropDownButton(text: self.items[2], y: yesNoContainer.subviews.last!.frame.maxY)
-        
-        yesNoContainer.addSubview(noBtn)
+        for i in 1...self.items.count-1 {
+            optionsBtns[i-1] = dropDownButton(text: self.items[i], y: (i != 1) ? (yesNoContainer.subviews.last!.frame.maxY) : CGFloat.zero)
+            yesNoContainer.addSubview(optionsBtns[i-1])
+        }
+//        yesBtn = dropDownButton(text: self.items[1], y: 0)
+//        yesNoContainer.addSubview(yesBtn)
+//
+//        noBtn = dropDownButton(text: self.items[2], y: yesNoContainer.subviews.last!.frame.maxY)
+//
+//        yesNoContainer.addSubview(noBtn)
     }
     
     func dropDownButton (text: String, y: CGFloat) -> UIButton {
@@ -108,7 +114,6 @@ class DropDownView: UIView {
     }
     
     @objc func showDropDownView() {
-
         UIView.animate(withDuration: 0.2, animations: {
             self.yesNoContainer.frame = CGRect.init(x: 0, y: self.btnField.frame.maxY, width: self._screenWidth/2-self.padding*2, height: self.yesNoContainer.subviews.last!.frame.maxY)
         })

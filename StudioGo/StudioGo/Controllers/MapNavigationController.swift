@@ -19,6 +19,7 @@ class MapNavigationController: UINavigationController {
     private let lightFont:UIFont = GlobalConstants.lightFont
     
     private let studioYellow = GlobalConstants.studioYellow
+    private let studioPink = GlobalConstants.studioPink
     
     let navBarObj = NavBarView()
     var navBar = UIView()
@@ -34,11 +35,8 @@ class MapNavigationController: UINavigationController {
         
         postOptionsView = postOptionsObj.setupOptions(navController: self, addLocationAction: #selector(pushAddLocationVC), portfolioPost: #selector(pushAddLocationVC))
         self.view.addSubview(postOptionsView)
-                
-//        navBarColour()
         
         navBar = navBarObj.createView(target: self, leftButtonAction: #selector(self.pushProfile), rightButtonAction: #selector(self.showOptions))
-
         self.view.addSubview(navBar)
         
         // Do any additional setup after loading the view.
@@ -62,12 +60,14 @@ class MapNavigationController: UINavigationController {
 //        self.view.addSubview(navBar)
     }
     
-    @objc func showOptions() {
+    @objc func showOptions(sender:UIButton) {
+        sender.setTitleColor(studioPink, for: .normal)
         postOptionsView = postOptionsObj.showOptions()
         navBar = navBarObj.updateTargets(target: self, leftButtonAction: #selector(popController), rightButtonAction: #selector(hideOptions))
     }
     
-    @objc func hideOptions() {
+    @objc func hideOptions(sender:UIButton) {
+        sender.setTitleColor(.white, for: .normal)
         postOptionsView = postOptionsObj.hideOptions()
         navBar = navBarObj.updateTargets(target: self, leftButtonAction: #selector(popController), rightButtonAction: #selector(showOptions))
     }
@@ -87,9 +87,8 @@ class MapNavigationController: UINavigationController {
         // Dispose of any resources that can be recreated.
     }
     
-    @objc func pushAddLocationVC() {
-        print("PUSHED")
-        hideOptions()
+    @objc func pushAddLocationVC(sender: UIButton) {
+        hideOptions(sender: sender)
         self.pushViewController(AddLocationViewController(), animated: false)
     }
     

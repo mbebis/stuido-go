@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class AddLocationViewController: UIViewController {
     
@@ -21,7 +22,25 @@ class AddLocationViewController: UIViewController {
         
         self.view = addLocationView
 
+        NotificationCenter.default.addObserver(self, selector: #selector(buttonClicked), name: NSNotification.Name(rawValue: "buttonClickedNotification"), object: nil)
+
         // Do any additional setup after loading the view.
+    }
+    
+    @objc func buttonClicked(data: NSNotification)
+    {
+        //If any data is passed get it using
+        let _:NSDictionary = data.userInfo! as NSDictionary   //If data is of NSDictionary type.
+
+        print(data.userInfo ?? [])
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "addLocationNotification"), object: nil, userInfo: data.userInfo)
+        popController()
+    }
+    
+    func popController()
+    {
+        self.navigationController?.popViewController(animated: true)
     }
 
     /*

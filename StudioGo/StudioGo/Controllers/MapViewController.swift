@@ -25,8 +25,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     let _screenWidth = GlobalConstants.screenWidth
     let _screenHeight = GlobalConstants.screenHeight
     
-//    let camera = GMSCameraPosition.camera(withLatitude: 0, longitude: 0, zoom: 6.0)
-    let gmsMapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 0, width: GlobalConstants.screenWidth, height: GlobalConstants.screenHeight), camera: GMSCameraPosition.camera(withLatitude: 0, longitude: 0, zoom: 6.0))
+    //    let camera = GMSCameraPosition.camera(withLatitude: 0, longitude: 0, zoom: 6.0)
+    let gmsMapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 0, width: GlobalConstants.screenWidth, height: GlobalConstants.screenHeight), camera: GMSCameraPosition.camera(withLatitude: 0, longitude: 0, zoom: 1.0))
     let geoCoder = CLGeocoder()
     
     let locations = "Locations.json"
@@ -49,7 +49,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         
         searchFieldCreate()
         filterInfoCreate()
-//        setupOptions()
+        //        setupOptions()
+        NotificationCenter.default.addObserver(self, selector: #selector(addLocationNotif), name: NSNotification.Name(rawValue: "addLocationNotification"), object: nil)
     }
     
     func searchFieldCreate() {
@@ -77,7 +78,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         searchField.clearButtonMode = UITextField.ViewMode.whileEditing
         searchField.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
         searchField.delegate = self as? UITextFieldDelegate
-                
+
         self.view.addSubview(searchField)
     }
     
@@ -149,7 +150,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
             do {
                 let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .alwaysMapped)
                 let jsonObj = try JSON(data: data)
-
+                
                 geoCoder.geocodeAddressString(jsonObj["1"]["address"].string!) { (placemarks, error) in
                     guard
                         let placemarks = placemarks,
@@ -158,36 +159,14 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
                             // handle no location found
                             return
                     }
-
-                    self.gmsMapView.camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude, longitude: location.coordinate.longitude, zoom: 6.0)
+                    
+                    self.gmsMapView.camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude, longitude: location.coordinate.longitude, zoom: 12.0)
                     
                     for (index,subJson):(String, JSON) in jsonObj {
-                        self.geoCoder.geocodeAddressString(jsonObj[index]["address"].string!) { (placemarks, error) in
-                            guard
-                                let placemarks = placemarks,
-                                let location = placemarks.first?.location
-                                else {
-                                    print("Invalid address")
-                                    return
-                            }
-
-                            let marker = GMSMarker()
-                            marker.position = location.coordinate
-                            marker.groundAnchor = .init(x: 0.5, y: 0.5)
-                                                    marker.title = jsonObj[index]["address"].string!
-                            //                        marker.snippet = "Australia"
-                            let imageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: 18, height: 18))
-                            let icon = UIImage.init(named: "SmallLocationIcon")
-                            imageView.image = icon
-                            marker.iconView = imageView
-
-                            marker.map = self.gmsMapView
-
-                            self.markers.append(Marker(marker: marker, dataJson: subJson))
-                        }
-                        print(index)
+                        self.addLocation(json: subJson)
+                        print("Index: ", index)
                     }
-                    self.addLocation(address: "23 Regency View Heights, Maple, ON L6A3T9, Canada")
+                    //                    self.addLocation(address: "23 Regency View Heights, Maple, ON L6A3T9, Canada")
                 }
             } catch {
                 // handle error
@@ -208,14 +187,14 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
             }
         }
         
-//        markerInfoView.updateView(address: marker.title!)
-//        markerInfoView.addGestureRecognizer(gesture)
-//        view.addSubview(markerInfoView)
+        //        markerInfoView.updateView(address: marker.title!)
+        //        markerInfoView.addGestureRecognizer(gesture)
+        //        view.addSubview(markerInfoView)
         
         UIView.animate(withDuration: 0.2, animations: {
             self.markerInfoView.frame = CGRect(x: self.markerInfoView.frame.minX, y: self._screenHeight-10-60-128, width: self.markerInfoView.bounds.width, height: self.markerInfoView.bounds.height)
             marker.iconView?.transform = CGAffineTransform(scaleX: 3.0, y: 3.0);
-
+            
         })
         
         let emptyView = UIView(frame: CGRect.init(x: 0, y: 0, width: 1, height: 1))
@@ -231,11 +210,22 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         })
     }
     
-    func addLocation(address: String) {
-        let json: JSON = JSON([ "title" : "Ben", "location" : "Private", "cost" : "benji", "permit":"Yes", "address":"23 Regency View Heights, Maple, ON L6A3T9, Canada", "website": "home.com", "contact": "hello@thisisfr.ee","description":"Home"])
-
+    @objc func addLocationNotif(data: NSNotification) {
+        let receivedData:NSDictionary = data.userInfo! as NSDictionary   //If data is of NSDictionary type.
+        
+        print("recieved")
+        print(receivedData)
+        
+        let json: JSON = JSON(receivedData)
+        
+        addLocation(json: json)
+    }
+    
+    func addLocation(json: JSON) {
+//        let json: JSON = JSON([ "title" : "Ben", "location" : "Private", "cost" : "benji", "permit":"Yes", "address":"23 Regency View Heights, Maple, ON L6A3T9, Canada", "website": "home.com", "contact": "hello@thisisfr.ee","description":"Home"])
+        
         let geoCoder = CLGeocoder()
-        geoCoder.geocodeAddressString(address) { (placemarks, error) in
+        geoCoder.geocodeAddressString(json["address"].string!) { (placemarks, error) in
             guard
                 let placemarks = placemarks,
                 let location = placemarks.first?.location
@@ -247,7 +237,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
             let marker = GMSMarker()
             marker.position = location.coordinate
             marker.groundAnchor = .init(x: 0.5, y: 0.5)
-            marker.title = address
+            marker.title = json["address"].string!
             //                        marker.snippet = "Australia"
             let imageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: 18, height: 18))
             let icon = UIImage.init(named: "SmallLocationIcon")
@@ -257,10 +247,9 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
             marker.map = self.gmsMapView
             
             self.markers.append(Marker(marker: marker, dataJson: json))
-        
+            
         }
     }
-        
     
     //All available ViewControllers to navigate to from this view
     @objc func pushProfile() {
