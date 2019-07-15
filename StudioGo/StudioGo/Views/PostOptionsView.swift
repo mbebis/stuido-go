@@ -49,7 +49,7 @@ class PostOptionsView: UIView {
         
         let addLocationBtn = optionButton(text: "ADD LOCATION", navController: navController, action: addLocationAction, y: 0, width: buttonWidth, height: buttonHeight)
         optionsView.addSubview(addLocationBtn)
-        let createPostBtn = optionButton(text: "PORTFOLIO POST", navController: navController, action: addLocationAction, y: (optionsView.subviews.last?.frame.maxY)!+buttonSpacing, width: buttonWidth, height: buttonHeight)
+        let createPostBtn = tempOptionButton(text: "PORTFOLIO POST", navController: navController, action: addLocationAction, y: (optionsView.subviews.last?.frame.maxY)!+buttonSpacing, width: buttonWidth, height: buttonHeight)
         optionsView.addSubview(createPostBtn)
 
         self.addSubview(optionsView)
@@ -77,13 +77,36 @@ class PostOptionsView: UIView {
         let btn = UIButton.init(frame: CGRect.init(x: 0, y: y, width: width, height: height))
         btn.backgroundColor = .white
         btn.layer.cornerRadius = buttonCornerRadius
-        btn.setTitle(text, for: UIControl.State.normal)
-        btn.setTitleColor(studioYellow, for: .normal)
-        btn.titleLabel!.font = regularFont
         
-//        btn.addTarget(navController, action: action, for: UIControl.Event.touchUpInside)
+        let attributedTitle = NSAttributedString(string: text, attributes: (GlobalConstants.yellowTextAttributes as! [NSAttributedString.Key : Any]))
+        btn.setAttributedTitle(attributedTitle, for: .normal)
+        //        btn.setTitle(text, for: UIControl.State.normal)
+        //        btn.setTitleColor(studioYellow, for: .normal)
+        //        btn.titleLabel!.font = regularFont
+        
+        //        btn.addTarget(navController, action: action, for: UIControl.Event.touchUpInside)
         btn.addTarget(navController, action: action, for: UIControl.Event.touchUpInside)
-
+        
+        return btn
+    }
+    
+    func tempOptionButton(text: String, navController: UINavigationController, action: Selector, y: CGFloat, width: CGFloat, height: CGFloat) -> UIButton {
+        let buttonCornerRadius: CGFloat = height/2
+        
+        let btn = UIButton.init(frame: CGRect.init(x: 0, y: y, width: width, height: height))
+        btn.backgroundColor = .white
+        btn.layer.opacity = 0.5
+        btn.layer.cornerRadius = buttonCornerRadius
+        
+        let attributedTitle = NSAttributedString(string: text, attributes: (GlobalConstants.greyTextRegularAttr as! [NSAttributedString.Key : Any]))
+        btn.setAttributedTitle(attributedTitle, for: .normal)
+        //        btn.setTitle(text, for: UIControl.State.normal)
+        //        btn.setTitleColor(studioYellow, for: .normal)
+        //        btn.titleLabel!.font = regularFont
+        
+        //        btn.addTarget(navController, action: action, for: UIControl.Event.touchUpInside)
+        btn.addTarget(navController, action: action, for: UIControl.Event.touchUpInside)
+        
         return btn
     }
     

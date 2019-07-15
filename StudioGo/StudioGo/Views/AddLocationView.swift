@@ -22,16 +22,17 @@ class AddLocationView: UIView {
     private let studioLightGrey = GlobalConstants.studioLightGrey
 
     let padding:CGFloat = 6
+    let sidePadding:CGFloat = 12
     let extraPadding:CGFloat = 3
     let singleLineHeight:CGFloat = 28
-    
+
     let publicPrivateDropDownObj = DropDownView(items: ["PUBLIC OR PRIVATE", "PUBLIC", "PRIVATE"])
     let permitDropDownObj = DropDownView(items: ["PERMIT?", "REQUIRED", "NONE"])
     let provinceDropDownObj = DropDownView(items: ["PROVINCE", "ONTARIO"])
     let countryDropDownObj = DropDownView(items: ["COUNTRY", "CANADA"])
     
     var locationNameField = UITextField()
-    var addressField = UITextField()
+    var streetAddressField = UITextField()
     var cityField = UITextField()
     var postalCodeField = UITextField()
     var provinceDropDown = UIView()
@@ -46,6 +47,9 @@ class AddLocationView: UIView {
     var submitBtn = UIButton()
 
     func setupView() -> UIView {
+        let halfWidth:CGFloat = _screenWidth/2-sidePadding-padding
+        let fullWidth:CGFloat = _screenWidth-sidePadding*2
+        
         self.frame = CGRect(x: 0, y: 0, width: _screenWidth, height: _screenHeight)
     
 
@@ -70,32 +74,32 @@ class AddLocationView: UIView {
         uploadImageView.addSubview(btn4)
         self.addSubview(uploadImageView)
         
-        locationNameField = roundedTextBox(placeHolder: "LOCATION NAME", x: padding, y: self.subviews.last!.frame.maxY, width: _screenWidth-(padding*2), height: singleLineHeight)
+        locationNameField = roundedTextBox(placeHolder: "LOCATION NAME", x: sidePadding, y: self.subviews.last!.frame.maxY, width: fullWidth, height: singleLineHeight)
         self.addSubview(locationNameField)
-        addressField = roundedTextBox(placeHolder: "STREET ADDRESS", x: padding, y: self.subviews.last!.frame.maxY, width: _screenWidth-(padding*2), height: singleLineHeight)
-        self.addSubview(addressField)
-        cityField = roundedTextBox(placeHolder: "CITY", x: padding, y: self.subviews.last!.frame.maxY, width: _screenWidth/2-(padding*2), height: singleLineHeight)
-        postalCodeField = roundedTextBox(placeHolder: "POSTAL CODE", x: cityField.frame.maxX+padding*2, y: self.subviews.last!.frame.maxY, width: _screenWidth/2-(padding*2), height: singleLineHeight)
+        streetAddressField = roundedTextBox(placeHolder: "STREET ADDRESS", x: sidePadding, y: self.subviews.last!.frame.maxY, width: fullWidth, height: singleLineHeight)
+        self.addSubview(streetAddressField)
+        cityField = roundedTextBox(placeHolder: "CITY", x: sidePadding, y: self.subviews.last!.frame.maxY, width: halfWidth, height: singleLineHeight)
+        postalCodeField = roundedTextBox(placeHolder: "POSTAL CODE", x: cityField.frame.maxX+padding*2, y: self.subviews.last!.frame.maxY, width: halfWidth, height: singleLineHeight)
         self.addSubview(cityField)
         self.addSubview(postalCodeField)
-        provinceDropDown = provinceDropDownObj.createDropDownView(x: padding, y: self.subviews.last!.frame.maxY)
-        countryDropDown = countryDropDownObj.createDropDownView(x: _screenWidth/2+padding, y: self.subviews.last!.frame.maxY)
+        provinceDropDown = provinceDropDownObj.createDropDownView(x:sidePadding, y: self.subviews.last!.frame.maxY, width: _screenWidth/2-sidePadding-padding)
+        countryDropDown = countryDropDownObj.createDropDownView(x: _screenWidth/2+padding, y: self.subviews.last!.frame.maxY, width: _screenWidth/2-sidePadding-padding)
         self.addSubview(provinceDropDown)
         self.addSubview(countryDropDown)
-        websiteField = roundedTextBox(placeHolder: "WEBSITE", x: padding, y: self.subviews.last!.frame.maxY, width: _screenWidth/2-(padding*2), height: singleLineHeight)
-        costField = roundedTextBox(placeHolder: "COST", x: websiteField.frame.maxX+(padding*2), y: self.subviews.last!.frame.maxY, width: _screenWidth/2-(padding*2), height: singleLineHeight)
+        websiteField = roundedTextBox(placeHolder: "WEBSITE", x: sidePadding, y: self.subviews.last!.frame.maxY, width: halfWidth, height: singleLineHeight)
+        costField = roundedTextBox(placeHolder: "COST", x: websiteField.frame.maxX+(padding*2), y: self.subviews.last!.frame.maxY, width: halfWidth, height: singleLineHeight)
         self.addSubview(websiteField)
         self.addSubview(costField)
         
-        isPublicDropDown = publicPrivateDropDownObj.createDropDownView(x: padding, y: self.subviews.last!.frame.maxY)
-        hasPermitDropDown = permitDropDownObj.createDropDownView(x: _screenWidth/2+padding, y: self.subviews.last!.frame.maxY)
+        isPublicDropDown = publicPrivateDropDownObj.createDropDownView(x: sidePadding, y: self.subviews.last!.frame.maxY, width: _screenWidth/2-sidePadding-padding)
+        hasPermitDropDown = permitDropDownObj.createDropDownView(x: _screenWidth/2+padding, y: self.subviews.last!.frame.maxY, width: _screenWidth/2-sidePadding-padding)
         self.addSubview(isPublicDropDown)
         self.addSubview(hasPermitDropDown)
 
-        descriptionField = roundedTextBox(placeHolder: "DESCRIBE THIS LOCATION", x: padding, y: self.subviews.last!.frame.maxY, width: _screenWidth-(padding*2), height: singleLineHeight*2)
+        descriptionField = roundedTextBox(placeHolder: "DESCRIBE THIS LOCATION", x: sidePadding, y: self.subviews.last!.frame.maxY, width: fullWidth, height: singleLineHeight*2)
         self.addSubview(descriptionField)
 //
-        tagsField = roundedTextBox(placeHolder: "TAGS (EX. STUDIO, PUBLIC, PAINTING, PHOTOGRAPHY)", x: padding, y: self.subviews.last!.frame.maxY, width: _screenWidth-(padding*2), height: singleLineHeight)
+        tagsField = roundedTextBox(placeHolder: "TAGS (EX. STUDIO, PUBLIC, PAINTING, PHOTOGRAPHY)", x: sidePadding, y: self.subviews.last!.frame.maxY, width: fullWidth, height: singleLineHeight)
         self.addSubview(tagsField)
 //
         submitBtn = roundedButton(text: "SUBMIT", y: self.subviews.last!.frame.maxY, width: _screenWidth/2, height: singleLineHeight*1, action: #selector(submitLocation))
@@ -130,7 +134,7 @@ class AddLocationView: UIView {
     func label(text: String, font: UIFont, y: CGFloat) -> UILabel {
         let label = UILabel()
 
-        let attributedTitle = NSAttributedString(string: text, attributes: (GlobalConstants.attributes as! [NSAttributedString.Key : Any]))
+        let attributedTitle = NSAttributedString(string: text, attributes: (GlobalConstants.blackTextLightAttr as! [NSAttributedString.Key : Any]))
         
         label.attributedText = attributedTitle
         label.font = font
@@ -143,8 +147,8 @@ class AddLocationView: UIView {
     func roundedTextBox(placeHolder: String, x: CGFloat, y: CGFloat, width: CGFloat, height: CGFloat) -> UITextField {
         let cornerRadius:CGFloat = singleLineHeight/2
         
-        let attributedPlaceholder = NSAttributedString(string: placeHolder, attributes: (GlobalConstants.attributes as! [NSAttributedString.Key : Any]))
-        let attributedTitle = NSAttributedString(string: "", attributes: (GlobalConstants.attributes as! [NSAttributedString.Key : Any]))
+        let attributedPlaceholder = NSAttributedString(string: placeHolder, attributes: (GlobalConstants.blackTextLightAttr as! [NSAttributedString.Key : Any]))
+        let attributedTitle = NSAttributedString(string: "", attributes: (GlobalConstants.blackTextLightAttr as! [NSAttributedString.Key : Any]))
 
         let textField = UITextField()
         textField.frame = CGRect.init(x: x, y: y+padding, width: width, height: height)
@@ -153,9 +157,9 @@ class AddLocationView: UIView {
         textField.attributedPlaceholder = attributedPlaceholder
         
         textField.isUserInteractionEnabled = true
-        textField.font = lightFont
-        textField.textColor = studioGrey
-        textField.backgroundColor = studioLightGrey
+        textField.font = GlobalConstants.lightFont
+        textField.textColor = .black
+        textField.backgroundColor = GlobalConstants.studioLightGrey
         textField.textAlignment = .center
 ////        textField.tintColor = .white
 //        textField.borderStyle = UITextField.BorderStyle.roundedRect
@@ -167,7 +171,7 @@ class AddLocationView: UIView {
         textField.autocorrectionType = UITextAutocorrectionType.no
         textField.keyboardType = UIKeyboardType.default
         textField.returnKeyType = UIReturnKeyType.done
-//        textField.clearButtonMode = UITextField.ViewMode.whileEditing
+//        textField.clearButtonMode = UITextField.ViewMode.
         textField.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
         textField.delegate = self as? UITextFieldDelegate
 //        textField.text.textAlignment=NSTextAlignmentCenter;
@@ -177,7 +181,7 @@ class AddLocationView: UIView {
     
     func roundedButton(text: String, y: CGFloat, width: CGFloat, height: CGFloat, action: Selector) -> UIButton {
         
-        let attributedTitle = NSAttributedString(string: text, attributes: (GlobalConstants.whiteTextAttributes as! [NSAttributedString.Key : Any]))
+        let attributedTitle = NSAttributedString(string: text, attributes: (GlobalConstants.whiteTextRegularAttr as! [NSAttributedString.Key : Any]))
         
         let btn = UIButton.init(frame: CGRect.init(x: _screenWidth/2-width/2, y: y+padding*2, width: width, height: height))
         btn.backgroundColor = studioYellow
@@ -191,45 +195,38 @@ class AddLocationView: UIView {
     }
     
     @objc func submitLocation() {
-        if (locationNameField.text == "") {
-            print("add location")
-        }
-        if (addressField.text == "") {
-            print("add addressField")
-        }
-        if (costField.text == "") {
-            print("add costField")
-        }
-        if (descriptionField.text == "") {
-            print("add descriptionField")
-        }
-        if (tagsField.text == "") {
-            print("add tagsField")
-        }
-        if (publicPrivateDropDownObj.btnField.titleLabel?.attributedText?.string == "Optional(\"PUBLIC OR PRIVATE\")") {
-            print("select public/private")
-        }
-        if (permitDropDownObj.btnField.titleLabel?.attributedText?.string == "Optional(\"PERMIT?\")") {
-            print("select public/private")
-        }
-        if (locationNameField.text != "" && addressField.text != "" && costField.text != "" && descriptionField.text != "" && tagsField.text != "" && publicPrivateDropDownObj.btnField.titleLabel?.attributedText?.string != "Optional(\"PUBLIC OR PRIVATE\")" && permitDropDownObj.btnField.titleLabel?.attributedText?.string != "Optional(\"PERMIT?\")") {
-            var address = addressField.text
-//            var address = addressField.text+", "
-//            address+=provinceDropDownObj.btnField.titleLabel?.attributedText?.string
-//            address+=postalCodeField.text
-//            address+=", "
-//            address+=countryDropDownObj.btnField.titleLabel?.attributedText?.string
-            address?.append(contentsOf: ", ")
-            address?.append(contentsOf: cityField.text ?? "")
-            address?.append(contentsOf: ", ")
-            address?.append(contentsOf: provinceDropDownObj.btnField.titleLabel?.attributedText?.string ?? "")
-            address?.append(contentsOf: " ")
-            address?.append(contentsOf: postalCodeField.text ?? "")
-            address?.append(contentsOf: ", ")
-            address?.append(contentsOf: countryDropDownObj.btnField.titleLabel?.attributedText?.string ?? "")
+        var isFieldsFilled = true
+        if (!cityField.hasText) { isFieldsFilled = false }
+        if (!costField.hasText) { isFieldsFilled = false }
+        if (countryDropDownObj.btnField.titleLabel?.attributedText?.string == "Optional(\"COUNTRY\")") { isFieldsFilled = false ; print(countryDropDownObj.btnField.titleLabel?.attributedText?.string) }
+        if (!descriptionField.hasText) { isFieldsFilled = false ; print("description") }
+        if (permitDropDownObj.btnField.titleLabel?.attributedText?.string == "Optional(\"PERMIT?\")") { isFieldsFilled = false ; print(permitDropDownObj.btnField.titleLabel?.attributedText?.string) }
+        if (publicPrivateDropDownObj.btnField.titleLabel?.attributedText?.string == "Optional(\"PUBLIC OR PRIVATE\")") { isFieldsFilled = false ; print(publicPrivateDropDownObj.btnField.titleLabel?.attributedText?.string) }
+        if (!locationNameField.hasText) { isFieldsFilled = false }
+        if (!postalCodeField.hasText) { isFieldsFilled = false }
+        if (provinceDropDownObj.btnField.titleLabel?.attributedText?.string == "Optional(\"PROVINCE\")")  { isFieldsFilled = false ; print(provinceDropDownObj.btnField.titleLabel?.attributedText?.string) }
+        if (!streetAddressField.hasText) { isFieldsFilled = false }
+        if (!tagsField.hasText) { isFieldsFilled = false }
+        if (!websiteField.hasText) { isFieldsFilled = false }
+        
+        if ( isFieldsFilled ) {
 
-            let userInfo:[String: Any] = ["title" : locationNameField.text, "location":publicPrivateDropDownObj.btnField.titleLabel?.attributedText?.string, "cost": costField.text, "address":address, "website": locationNameField.text, "permit":permitDropDownObj.btnField.titleLabel?.attributedText?.string, "description":descriptionField.text, "tags":tagsField.text]
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "buttonClickedNotification"), object: nil, userInfo: userInfo)
+            let city = cityField.text
+            let cost = costField.text
+            let country = countryDropDownObj.btnField.titleLabel?.attributedText?.string
+            let description = descriptionField.text
+            let hasPermit = permitDropDownObj.btnField.titleLabel?.attributedText?.string
+            let isPrivate = publicPrivateDropDownObj.btnField.titleLabel?.attributedText?.string
+            let locationTitle = locationNameField.text
+            let postalCode = postalCodeField.text
+            let province = provinceDropDownObj.btnField.titleLabel?.attributedText?.string
+            let streetAddress = streetAddressField.text
+            let tags = tagsField.text
+            let website = websiteField.text
+
+            let userInfo:[String: Any] = ["city": city, "cost": cost, "country": country, "description": description, "hasPermit": hasPermit, "isPrivate": isPrivate, "location": locationTitle, "postalCode": postalCode, "province": province, "streetAddress": streetAddress, "tags": tags, "website": website]
+            
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "submitLocationNotification"), object: nil, userInfo: userInfo)
         }
         
     }
@@ -239,12 +236,6 @@ class AddLocationView: UIView {
 //        MapViewController().addLocation(json: "23 Regency View Heights, Maple, ON L6A3T9, Canada")
         
         
-    }
-    
-    func dropDown(x: CGFloat, y: CGFloat) -> UIView {
-        let publicPrivateDropDownView = publicPrivateDropDownObj.createDropDownView(x: x, y: y)
-        
-        return publicPrivateDropDownView
     }
     
     /*

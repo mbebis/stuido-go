@@ -36,8 +36,10 @@ class MapNavigationController: UINavigationController {
         postOptionsView = postOptionsObj.setupOptions(navController: self, addLocationAction: #selector(pushAddLocationVC), portfolioPost: #selector(pushAddLocationVC))
         self.view.addSubview(postOptionsView)
         
-        navBar = navBarObj.createView(target: self, leftButtonAction: #selector(self.pushProfile), rightButtonAction: #selector(self.showOptions))
+        navBar = navBarObj.createView(target: self, leftButtonAction: #selector(pushProfile), rightButtonAction: #selector(self.showOptions))
         self.view.addSubview(navBar)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(submitLocationBtnClicked), name: NSNotification.Name(rawValue: "submitLocationNotification"), object: nil)
         
         // Do any additional setup after loading the view.
     }
@@ -76,6 +78,17 @@ class MapNavigationController: UINavigationController {
         self.popViewController(animated: true)
     }
     
+    @objc func popToMap(sender:UIButton) {
+        hideOptions(sender: sender)
+        popController()
+    }
+    
+    @objc func submitLocationBtnClicked() {
+        navBar = navBarObj.updateTargets(target: self, leftButtonAction: #selector(popController), rightButtonAction: #selector(showOptions))
+        navBarObj.resetButtonView()
+        popController()
+    }
+    
     func navBarColour() {
         self.navigationBar.barTintColor = studioYellow
         self.navigationBar.backgroundColor = studioYellow
@@ -89,6 +102,7 @@ class MapNavigationController: UINavigationController {
     
     @objc func pushAddLocationVC(sender: UIButton) {
         hideOptions(sender: sender)
+        navBar = navBarObj.updateTargets(target: self, leftButtonAction: #selector(popController), rightButtonAction: #selector(popToMap))
         self.pushViewController(AddLocationViewController(), animated: false)
     }
     

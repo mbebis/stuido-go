@@ -16,23 +16,24 @@ class AddLocationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        hideKeyboardWhenTappedAround()
+        self.hideKeyboardWhenTappedAround()
         
         addLocationView = self.addLocationViewObj.setupView()
         
         self.view = addLocationView
 
-        NotificationCenter.default.addObserver(self, selector: #selector(buttonClicked), name: NSNotification.Name(rawValue: "buttonClickedNotification"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(submitButtonClicked), name: NSNotification.Name(rawValue: "submitLocationNotification"), object: nil)
 
         // Do any additional setup after loading the view.
     }
     
-    @objc func buttonClicked(data: NSNotification)
+    @objc func submitButtonClicked(data: NSNotification)
     {
+        
         //If any data is passed get it using
         let _:NSDictionary = data.userInfo! as NSDictionary   //If data is of NSDictionary type.
 
-        print(data.userInfo ?? [])
+//        print(data.userInfo ?? [])
         
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "addLocationNotification"), object: nil, userInfo: data.userInfo)
         popController()

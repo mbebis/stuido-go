@@ -2,7 +2,8 @@ import UIKit
 
 struct GlobalConstants {
     //  DEVICE CONSTANT
-    
+    static let tabbarHeight:CGFloat = 60
+    static let navBarHeight:CGFloat = 72
     static let statusBarHeight = UIApplication.shared.statusBarFrame.height
     static let screenWidth = UIScreen.main.bounds.width
     static let screenHeight = UIScreen.main.bounds.height
@@ -23,14 +24,49 @@ struct GlobalConstants {
     
     //  label constants
     
-    static let attributes: NSDictionary = [
+    static let blackTextLightAttr: NSDictionary = [
         NSAttributedString.Key.kern:CGFloat(2.0),
-        NSAttributedString.Key.foregroundColor:UIColor(ciColor: .black),
+        NSAttributedString.Key.foregroundColor:UIColor.black,
         NSAttributedString.Key.font:lightFont
     ]
-    static let whiteTextAttributes: NSDictionary = [
+    static let greyTextLightAttr: NSDictionary = [
         NSAttributedString.Key.kern:CGFloat(2.0),
-        NSAttributedString.Key.foregroundColor:UIColor(ciColor: .white),
+        NSAttributedString.Key.foregroundColor:studioGrey,
+        NSAttributedString.Key.font:lightFont
+    ]
+    static let whiteTextLightAttr: NSDictionary = [
+        NSAttributedString.Key.kern:CGFloat(2.0),
+        NSAttributedString.Key.foregroundColor:UIColor.white,
+        NSAttributedString.Key.font:lightFont
+    ]
+    static let blackTextRegularAttr: NSDictionary = [
+        NSAttributedString.Key.kern:CGFloat(2.0),
+        NSAttributedString.Key.foregroundColor:UIColor.black,
+        NSAttributedString.Key.font:regularFont
+    ]
+    static let greyTextRegularAttr: NSDictionary = [
+        NSAttributedString.Key.kern:CGFloat(2.0),
+        NSAttributedString.Key.foregroundColor:studioGrey ,
+        NSAttributedString.Key.font:regularFont
+    ]
+    static let whiteTextRegularAttr: NSDictionary = [
+        NSAttributedString.Key.kern:CGFloat(2.0),
+        NSAttributedString.Key.foregroundColor:UIColor.white,
+        NSAttributedString.Key.font:regularFont
+    ]
+    static let yellowTextAttributes: NSDictionary = [
+        NSAttributedString.Key.kern:CGFloat(2.0),
+        NSAttributedString.Key.foregroundColor:studioYellow,
+        NSAttributedString.Key.font:regularFont
+    ]
+    static let whiteFilterAttributes: NSDictionary = [
+        NSAttributedString.Key.kern:CGFloat(2.0),
+        NSAttributedString.Key.foregroundColor:UIColor.white,
+        NSAttributedString.Key.font:regularFont
+    ]
+    static let blackFilterAttributes: NSDictionary = [
+        NSAttributedString.Key.kern:CGFloat(2.0),
+        NSAttributedString.Key.foregroundColor:UIColor.black,
         NSAttributedString.Key.font:regularFont
     ]
 }
@@ -38,11 +74,15 @@ struct GlobalConstants {
 extension UIViewController {
     func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
-        tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
+        
     }
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
+        
+        for vw in view.subviews {
+            vw.endEditing(true)
+        }
     }
 }

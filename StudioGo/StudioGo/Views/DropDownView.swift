@@ -24,6 +24,7 @@ class DropDownView: UIView {
     private let studioLightGrey = GlobalConstants.studioLightGrey
     
     let padding:CGFloat = 6
+    let sidePadding:CGFloat = 12
     let extraPadding:CGFloat = 3
     let singleLineHeight:CGFloat = 28
     
@@ -47,8 +48,8 @@ class DropDownView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func createDropDownView(x: CGFloat, y: CGFloat) -> UIView {
-        self.frame = CGRect.init(x: x, y: y+padding, width: _screenWidth/2-padding*2, height: singleLineHeight)
+    func createDropDownView(x: CGFloat, y: CGFloat, width: CGFloat) -> UIView {
+        self.frame = CGRect.init(x: x, y: y+padding, width: width, height: singleLineHeight)
         buttonField()
         dropDownView()
         self.addSubview(yesNoContainer)
@@ -63,7 +64,7 @@ class DropDownView: UIView {
         btnField.backgroundColor = studioLightGrey
         btnField.layer.cornerRadius = btnField.frame.height/2
         
-        let attributedText = NSAttributedString(string: self.items[0], attributes: (GlobalConstants.attributes as! [NSAttributedString.Key : Any]))
+        let attributedText = NSAttributedString(string: self.items[0], attributes: (GlobalConstants.blackTextLightAttr as! [NSAttributedString.Key : Any]))
         btnField.setAttributedTitle(attributedText, for: .normal)
         
         let rightViewIconView = UIImageView(frame: CGRect.init(x: btnField.frame.maxX - 24, y: btnField.frame.maxY-btnField.frame.height/2-20/2, width: 20, height: 20))
@@ -107,7 +108,7 @@ class DropDownView: UIView {
     
     @objc func updateDropDown(sender:UIButton) {
         let text:String = sender.title(for: .normal) ?? "SELECT ONE"
-        let attributedText = NSAttributedString(string: text, attributes: (GlobalConstants.attributes as! [NSAttributedString.Key : Any]))
+        let attributedText = NSAttributedString(string: text, attributes: (GlobalConstants.blackTextLightAttr as! [NSAttributedString.Key : Any]))
         btnField.setAttributedTitle(attributedText, for: .normal)
         
         hideDropDownView()

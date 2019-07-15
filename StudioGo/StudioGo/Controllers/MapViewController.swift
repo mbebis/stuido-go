@@ -20,23 +20,37 @@ struct Marker: MarkerInfo {
     var dataJson: JSON
 }
 
+//let locationsModel = MapModelController.init(location: [])
+
 class MapViewController: UIViewController, GMSMapViewDelegate {
+    
+    let locationsModel = MapModelController.shared
     
     let _screenWidth = GlobalConstants.screenWidth
     let _screenHeight = GlobalConstants.screenHeight
+     let tabbarHeight:CGFloat = GlobalConstants.tabbarHeight
+     let navBarHeight:CGFloat = GlobalConstants.navBarHeight
+     let statusBarHeight:CGFloat = GlobalConstants.statusBarHeight
     
     //    let camera = GMSCameraPosition.camera(withLatitude: 0, longitude: 0, zoom: 6.0)
     let gmsMapView = GMSMapView.map(withFrame: CGRect(x: 0, y: 0, width: GlobalConstants.screenWidth, height: GlobalConstants.screenHeight), camera: GMSCameraPosition.camera(withLatitude: 0, longitude: 0, zoom: 1.0))
     let geoCoder = CLGeocoder()
     
-    let locations = "Locations.json"
+    let locationsJSON = "Locations.json"
+    let locations:Array<Location> = []
     var markers: [Marker] = []
     
     let iconSize = CGSize.init(width: 54, height: 50)
     
-    let searchField =  UITextField()
-    let filterInfo = UIView()
+//    let searchField =  UITextField()
+//    let filterInfo = UIView()
     let markerInfoView = MarkerInfoView()
+    
+    let searchFieldObj = SearchBarView(frame: CGRect.init(x: (GlobalConstants.screenWidth/2)-((GlobalConstants.screenWidth-40)/2), y: CGFloat.init(GlobalConstants.navBarHeight+16), width: GlobalConstants.screenWidth-40, height: CGFloat.init(32)), placeholder: NSAttributedString(string: "SEARCH", attributes: (GlobalConstants.greyTextRegularAttr as! [NSAttributedString.Key : Any])))
+    var searchField = UITextField()
+    
+    let filterViewObj = FilterView(searchBarWidth: GlobalConstants.screenWidth-40, searchBarHeight: 32)
+    var filterPanel = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,10 +61,55 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         mapSetup()
         // Do any additional setup after loading the view.
         
-        searchFieldCreate()
+//        searchFieldCreate()
+        searchFieldObj.setLeftViewImage(image: UIImage.fontAwesomeIcon(name: .search, style: .solid, textColor: .gray, size: CGSize.init(width: 20, height: 20)))
+        searchField = searchFieldObj.setupView()
+        view.addSubview(searchField)
         filterInfoCreate()
         //        setupOptions()
+        loadLocationsFromJSON()
+        
+        filterPanel = filterViewObj.setupView()
+        view.addSubview(filterPanel)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(addLocationNotif), name: NSNotification.Name(rawValue: "addLocationNotification"), object: nil)
+    }
+    
+    func loadLocationsFromJSON() {
+        if let path = Bundle.main.path(forResource: "locations", ofType: "json") {
+            do {
+                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .alwaysMapped)
+                let jsonObj = try JSON(data: data)
+                
+                for (index,subJson):(String, JSON) in jsonObj {
+
+                    locationsModel.addLocation(location: jsonToLocation(json: subJson))
+//                    print(locationsModel)
+                }
+                
+            } catch {
+                // handle error
+                print("Error has occured")
+            }
+        }
+    }
+    
+    func jsonToLocation(json: JSON) -> Location {
+//        let location: Location = Location(streetAddress: <#String#>)
+        
+        let city = json["city"].stringValue
+        let cost = json["cost"].stringValue
+        let country = json["country"].stringValue
+        let description = json["description"].stringValue
+        let hasPermit = json["hasPermit"].boolValue
+        let isPrivate = json["city"].boolValue
+        let postalCode = json["postalCode"].stringValue
+        let province = json["province"].stringValue
+        let streetAddress = json["streetAddress"].stringValue
+        let tags = json["tags"].stringValue
+        let website = json["website"].stringValue
+
+        return Location(city: city, cost: cost, country: country, description: description, hasPermit: hasPermit, isPrivate: isPrivate, postalCode: postalCode, province: province, streetAddress: streetAddress, tags: tags, website: website)
     }
     
     func searchFieldCreate() {
@@ -58,7 +117,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         
         searchField.frame = CGRect(x: (_screenWidth/2)-((_screenWidth-40)/2), y: CGFloat.init(navBarHeight+16), width: _screenWidth-40, height: CGFloat.init(32))
         
-        searchField.leftView = UIView(frame: CGRect.init(x: 0, y: 0, width: 24, height: searchField.frame.height))
+//        searchField.leftView = UIView(frame: CGRect.init(x: 0, y: 0, width: 24, height: searchField.frame.height))
         let searchIconView = UIImageView(frame: CGRect.init(x: (24/2)-6, y: (searchField.frame.height/2)-10, width: 20, height: 20))
         searchIconView.image = UIImage.fontAwesomeIcon(name: .search, style: .solid, textColor: .gray, size: searchIconView.bounds.size)
         searchField.leftView?.addSubview(searchIconView)
@@ -84,55 +143,50 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     
     func filterInfoCreate() {
         let searchFieldY = searchField.frame.maxY
+        let searchFieldMinX = searchField.frame.minX
+        let padding:CGFloat = 6
+        let smallButtonWidth:CGFloat = (_screenWidth/4)-searchFieldMinX/2-padding*(3/4)
+        let buttonHeight:CGFloat = 24
         
-        filterInfo.backgroundColor = .white
-        filterInfo.isHidden = false
-        filterInfo.tintColor = .white
-        
-        filterInfo.frame = CGRect(x: (self.view.bounds.width/2)-((self.view.bounds.width-40)/2), y: searchFieldY+8, width: self.view.bounds.width-40, height: 32)
-        filterInfo.layer.borderColor = (UIColor.white).cgColor
-        filterInfo.layer.borderWidth = 1
-        filterInfo.layer.cornerRadius = filterInfo.bounds.height / 2.0
-        filterInfo.layer.masksToBounds = true
-        
-        let filterButton = UIButton.init(frame: CGRect(x: 5, y: 5, width: (filterInfo.bounds.width/4)-1, height: 22))
-        
+        let filterButton = UIButton.init(frame: CGRect(x: searchFieldMinX, y: searchFieldY+padding*2, width: smallButtonWidth, height: buttonHeight))
+        let filterText = NSAttributedString(string: "FILTER", attributes: (GlobalConstants.whiteFilterAttributes as! [NSAttributedString.Key : Any]))
+        let locationTypeText = NSAttributedString(string: "STUDIO", attributes: (GlobalConstants.blackFilterAttributes as! [NSAttributedString.Key : Any]))
+        let radiusText = NSAttributedString(string: "DISTANCE  80KM", attributes: (GlobalConstants.blackFilterAttributes as! [NSAttributedString.Key : Any]))
         filterButton.backgroundColor = .black
-        filterButton.isHidden = false
-        //        filterButton.tintColor = .black
-        
-        filterButton.layer.borderColor = (UIColor.black).cgColor
-        filterButton.layer.borderWidth = 1
         filterButton.layer.cornerRadius = filterButton.bounds.height / 2.0
         filterButton.layer.masksToBounds = true
-        filterButton.setTitle("FILTER", for: .normal)
-        filterButton.setTitleColor(.white, for: .normal)
-        filterButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        filterButton.setAttributedTitle(filterText, for: .normal)
+//        filterButton.attr
+//        filterButton.setTitle("FILTER", for: .normal)
+//        filterButton.setTitleColor(.white, for: .normal)
+//        filterButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 12)
         
-        let locationType = UILabel.init(frame: CGRect(x: 4+(filterInfo.bounds.width/4), y: 4, width: (filterInfo.bounds.width/4)-2, height: 24))
+        let locationType = UILabel.init(frame: CGRect(x: (_screenWidth/4)*2-padding/2-smallButtonWidth, y: searchFieldY+padding*2, width: smallButtonWidth, height: buttonHeight))
+        locationType.backgroundColor = .white
+        locationType.layer.cornerRadius = filterButton.bounds.height / 2.0
+        locationType.layer.masksToBounds = true
         locationType.textAlignment = .center
-        locationType.text = "STUDIO"
-        locationType.textColor = .black
-        locationType.font = UIFont.boldSystemFont(ofSize: 16)
+        locationType.attributedText = locationTypeText
+
+//        locationType.text = "STUDIO"
+//        locationType.textColor = .black
+//        locationType.font = UIFont.boldSystemFont(ofSize: 12)
         
-        let area = UILabel.init(frame: CGRect(x: 4+(filterInfo.bounds.width/4)*2, y: 4, width: ((filterInfo.bounds.width/6)*2)-2, height: 24))
-        area.textAlignment = .center
-        area.text = "DOWNTOWN"
-        area.textColor = .black
-        area.font = UIFont.boldSystemFont(ofSize: 16)
-        
-        let radius = UILabel.init(frame: CGRect(x: 4+(filterInfo.bounds.width/4)*2 + (filterInfo.bounds.width/6)*2, y: 4, width: (filterInfo.bounds.width/6), height: 24))
+        let radius = UILabel.init(frame: CGRect(x: (_screenWidth/4)*2+padding/2, y: searchFieldY+padding*2, width: (_screenWidth/2)-padding/2-searchFieldMinX, height: buttonHeight))
+        radius.backgroundColor = .white
+        radius.layer.cornerRadius = filterButton.bounds.height / 2.0
+        radius.layer.masksToBounds = true
         radius.textAlignment = .center
-        radius.text = "2KM"
-        radius.textColor = .black
-        radius.font = UIFont.boldSystemFont(ofSize: 16)
+        radius.attributedText = radiusText
+
+//        radius.text = "DISTANCE 80KM"
+//        radius.textColor = .black
+//        radius.font = UIFont.boldSystemFont(ofSize: 12)
         
-        filterInfo.addSubview(filterButton)
-        filterInfo.addSubview(locationType)
-        filterInfo.addSubview(area)
-        filterInfo.addSubview(radius)
-        
-        self.view.addSubview(filterInfo)
+        view.addSubview(filterButton)
+        view.addSubview(locationType)
+        view.addSubview(radius)
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -151,7 +205,16 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
                 let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .alwaysMapped)
                 let jsonObj = try JSON(data: data)
                 
-                geoCoder.geocodeAddressString(jsonObj["1"]["address"].string!) { (placemarks, error) in
+                var address = jsonObj["1"]["streetAddress"].string!
+                address.append(contentsOf: ", ")
+                address.append(contentsOf: jsonObj["1"]["city"].string!)
+                address.append(contentsOf: ", ")
+                address.append(contentsOf: jsonObj["1"]["province"].string!)
+                address.append(contentsOf: jsonObj["1"]["postalCode"].string!)
+                address.append(contentsOf: ", ")
+                address.append(contentsOf: jsonObj["1"]["country"].string!)
+
+                geoCoder.geocodeAddressString(address) { (placemarks, error) in
                     guard
                         let placemarks = placemarks,
                         let location = placemarks.first?.location
@@ -223,9 +286,18 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     
     func addLocation(json: JSON) {
 //        let json: JSON = JSON([ "title" : "Ben", "location" : "Private", "cost" : "benji", "permit":"Yes", "address":"23 Regency View Heights, Maple, ON L6A3T9, Canada", "website": "home.com", "contact": "hello@thisisfr.ee","description":"Home"])
-        
+        var address = json["streetAddress"].string!
+        address.append(contentsOf: ", ")
+        address.append(contentsOf: json["city"].string!)
+        address.append(contentsOf: ", ")
+        address.append(contentsOf: json["province"].string!)
+        address.append(contentsOf: " ")
+        address.append(contentsOf: json["postalCode"].string!)
+        address.append(contentsOf: ", ")
+        address.append(contentsOf: json["country"].string!)
+        print(address)
         let geoCoder = CLGeocoder()
-        geoCoder.geocodeAddressString(json["address"].string!) { (placemarks, error) in
+        geoCoder.geocodeAddressString(address) { (placemarks, error) in
             guard
                 let placemarks = placemarks,
                 let location = placemarks.first?.location
@@ -237,7 +309,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
             let marker = GMSMarker()
             marker.position = location.coordinate
             marker.groundAnchor = .init(x: 0.5, y: 0.5)
-            marker.title = json["address"].string!
+            marker.title = address
             //                        marker.snippet = "Australia"
             let imageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: 18, height: 18))
             let icon = UIImage.init(named: "SmallLocationIcon")

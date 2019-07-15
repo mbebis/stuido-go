@@ -75,6 +75,11 @@ class NavBarView: UIView {
         
         return self
     }
+    
+    func resetButtonView() {
+        leftButton.setTitleColor(.white, for: .normal)
+        rightButton.setTitleColor(.white, for: .normal)
+    }
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
