@@ -36,13 +36,19 @@
 		EB62820D2202808B008CA480 /* StudioGoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB62820C2202808B008CA480 /* StudioGoTests.swift */; };
 		EB628218220285DE008CA480 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB628217220285DE008CA480 /* MainViewController.swift */; };
 		EB62821A22028A80008CA480 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB62821922028A80008CA480 /* MapViewController.swift */; };
-		EB62821C22028A8A008CA480 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB62821B22028A8A008CA480 /* ListViewController.swift */; };
 		EB62821E22028A93008CA480 /* MediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB62821D22028A93008CA480 /* MediaViewController.swift */; };
 		EB628220220F6972008CA480 /* MapNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB62821F220F6972008CA480 /* MapNavigationController.swift */; };
 		EB71D98C229F7E2C001C4E49 /* PostOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB71D98B229F7E2C001C4E49 /* PostOptionsView.swift */; };
 		EB71D98E22A8140B001C4E49 /* AddLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB71D98D22A8140B001C4E49 /* AddLocationViewController.swift */; };
 		EB71D99022A81AD1001C4E49 /* AddLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB71D98F22A81AD1001C4E49 /* AddLocationView.swift */; };
 		EB7AD69422A877FF00875075 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7AD69322A877FF00875075 /* Constants.swift */; };
+		EB994FFE230B0B6300F3198F /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB994FFD230B0B6300F3198F /* ProfileView.swift */; };
+		EBBDD0BD230740E600BA5A22 /* SpaceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBDD0BC230740E600BA5A22 /* SpaceType.swift */; };
+		EBBDD0BF2307410300BA5A22 /* EquipmentList.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBDD0BE2307410300BA5A22 /* EquipmentList.swift */; };
+		EBBDD0C12307411300BA5A22 /* AccessibilityTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBDD0C02307411300BA5A22 /* AccessibilityTypes.swift */; };
+		EBBDD0C32307412200BA5A22 /* PermitType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBDD0C22307412200BA5A22 /* PermitType.swift */; };
+		EBBDD0C52307430200BA5A22 /* MediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBDD0C42307430200BA5A22 /* MediaView.swift */; };
+		EBBDD0C7230743FA00BA5A22 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBDD0C6230743FA00BA5A22 /* MessageView.swift */; };
 		EBD83CA3221B2ED500CBDB58 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EBD83CA2221B2ED500CBDB58 /* Launch Screen.storyboard */; };
 		EBD83CA7221B380200CBDB58 /* MarkerInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD83CA6221B380200CBDB58 /* MarkerInfoView.swift */; };
 		EBD83CAF221B48A000CBDB58 /* NavBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD83CAE221B48A000CBDB58 /* NavBarView.swift */; };
@@ -83,6 +89,11 @@
 		EBF64D2D22847CF300B923F3 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EBF64D0B22847CF300B923F3 /* Roboto-Bold.ttf */; };
 		EBF64D2E22847CF300B923F3 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EBF64D0C22847CF300B923F3 /* Roboto-Thin.ttf */; };
 		EBF64D2F22847CF300B923F3 /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EBF64D0D22847CF300B923F3 /* Roboto-Black.ttf */; };
+		EBFCF18523074544005E738E /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFCF18423074544005E738E /* MessagesViewController.swift */; };
+		EBFCF187230745C8005E738E /* SpaceTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFCF186230745C8005E738E /* SpaceTypeViewController.swift */; };
+		EBFCF189230745DA005E738E /* EquipmentListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFCF188230745DA005E738E /* EquipmentListViewController.swift */; };
+		EBFCF18B230745EE005E738E /* AccessibilityTypesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFCF18A230745EE005E738E /* AccessibilityTypesViewController.swift */; };
+		EBFCF18D230745FB005E738E /* PermitTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFCF18C230745FB005E738E /* PermitTypeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -131,20 +142,26 @@
 		EB62820E2202808B008CA480 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EB628217220285DE008CA480 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		EB62821922028A80008CA480 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		EB62821B22028A8A008CA480 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		EB62821D22028A93008CA480 /* MediaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaViewController.swift; sourceTree = "<group>"; };
 		EB62821F220F6972008CA480 /* MapNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapNavigationController.swift; sourceTree = "<group>"; };
 		EB71D98B229F7E2C001C4E49 /* PostOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostOptionsView.swift; sourceTree = "<group>"; };
 		EB71D98D22A8140B001C4E49 /* AddLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationViewController.swift; sourceTree = "<group>"; };
 		EB71D98F22A81AD1001C4E49 /* AddLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationView.swift; sourceTree = "<group>"; };
 		EB7AD69322A877FF00875075 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		EB994FFD230B0B6300F3198F /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		EBBDD0BC230740E600BA5A22 /* SpaceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceType.swift; sourceTree = "<group>"; };
+		EBBDD0BE2307410300BA5A22 /* EquipmentList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentList.swift; sourceTree = "<group>"; };
+		EBBDD0C02307411300BA5A22 /* AccessibilityTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityTypes.swift; sourceTree = "<group>"; };
+		EBBDD0C22307412200BA5A22 /* PermitType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermitType.swift; sourceTree = "<group>"; };
+		EBBDD0C42307430200BA5A22 /* MediaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaView.swift; sourceTree = "<group>"; };
+		EBBDD0C6230743FA00BA5A22 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		EBD83CA2221B2ED500CBDB58 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		EBD83CA6221B380200CBDB58 /* MarkerInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerInfoView.swift; sourceTree = "<group>"; };
 		EBD83CAE221B48A000CBDB58 /* NavBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarView.swift; sourceTree = "<group>"; };
 		EBD83CB2222F49D400CBDB58 /* locations.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = locations.json; sourceTree = "<group>"; };
 		EBE5748D2213950A00E5C9A6 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		EBE5748F221505F500E5C9A6 /* SearchTextFieldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextFieldViewController.swift; sourceTree = "<group>"; };
-		EBF1E2F222BBD72E00AFE58E /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
+		EBF1E2F222BBD72E00AFE58E /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; wrapsLines = 1; };
 		EBF64CEA22847CF300B923F3 /* Icon167.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon167.png; sourceTree = "<group>"; };
 		EBF64CEB22847CF300B923F3 /* Icon29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon29.png; sourceTree = "<group>"; };
 		EBF64CEC22847CF300B923F3 /* Icon1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon1024.png; sourceTree = "<group>"; };
@@ -178,6 +195,11 @@
 		EBF64D0B22847CF300B923F3 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		EBF64D0C22847CF300B923F3 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		EBF64D0D22847CF300B923F3 /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
+		EBFCF18423074544005E738E /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
+		EBFCF186230745C8005E738E /* SpaceTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceTypeViewController.swift; sourceTree = "<group>"; };
+		EBFCF188230745DA005E738E /* EquipmentListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentListViewController.swift; sourceTree = "<group>"; };
+		EBFCF18A230745EE005E738E /* AccessibilityTypesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityTypesViewController.swift; sourceTree = "<group>"; };
+		EBFCF18C230745FB005E738E /* PermitTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermitTypeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -299,13 +321,17 @@
 			isa = PBXGroup;
 			children = (
 				EBE5748D2213950A00E5C9A6 /* ProfileViewController.swift */,
-				EB62821B22028A8A008CA480 /* ListViewController.swift */,
 				EB434317225C0FC7005E55AE /* LocationViewController.swift */,
+				EBFCF186230745C8005E738E /* SpaceTypeViewController.swift */,
 				EB62821922028A80008CA480 /* MapViewController.swift */,
+				EBFCF18A230745EE005E738E /* AccessibilityTypesViewController.swift */,
+				EBFCF18C230745FB005E738E /* PermitTypeViewController.swift */,
+				EBFCF188230745DA005E738E /* EquipmentListViewController.swift */,
 				EBE5748F221505F500E5C9A6 /* SearchTextFieldViewController.swift */,
 				EB62821F220F6972008CA480 /* MapNavigationController.swift */,
 				EB71D98D22A8140B001C4E49 /* AddLocationViewController.swift */,
 				EB62821D22028A93008CA480 /* MediaViewController.swift */,
+				EBFCF18423074544005E738E /* MessagesViewController.swift */,
 				EB628217220285DE008CA480 /* MainViewController.swift */,
 			);
 			path = Controllers;
@@ -318,6 +344,13 @@
 				EBD83CA6221B380200CBDB58 /* MarkerInfoView.swift */,
 				EBF1E2F222BBD72E00AFE58E /* LocationView.swift */,
 				EB71D98F22A81AD1001C4E49 /* AddLocationView.swift */,
+				EBBDD0BC230740E600BA5A22 /* SpaceType.swift */,
+				EBBDD0BE2307410300BA5A22 /* EquipmentList.swift */,
+				EBBDD0C42307430200BA5A22 /* MediaView.swift */,
+				EBBDD0C6230743FA00BA5A22 /* MessageView.swift */,
+				EBBDD0C02307411300BA5A22 /* AccessibilityTypes.swift */,
+				EB994FFD230B0B6300F3198F /* ProfileView.swift */,
+				EBBDD0C22307412200BA5A22 /* PermitType.swift */,
 				EB5F0E6022D798B50015D68C /* FilterView.swift */,
 				EB5F0E6222D7A0FA0015D68C /* SearchBarView.swift */,
 				EB1D6F3222B2D55B0086515B /* DropDownView.swift */,
@@ -613,24 +646,35 @@
 			files = (
 				EBD83CA7221B380200CBDB58 /* MarkerInfoView.swift in Sources */,
 				EB6281F822028089008CA480 /* AppDelegate.swift in Sources */,
+				EBFCF18523074544005E738E /* MessagesViewController.swift in Sources */,
 				EB62821E22028A93008CA480 /* MediaViewController.swift in Sources */,
 				EB71D98E22A8140B001C4E49 /* AddLocationViewController.swift in Sources */,
 				EB71D98C229F7E2C001C4E49 /* PostOptionsView.swift in Sources */,
 				EB628220220F6972008CA480 /* MapNavigationController.swift in Sources */,
+				EBBDD0BD230740E600BA5A22 /* SpaceType.swift in Sources */,
 				EB1D6F3322B2D55B0086515B /* DropDownView.swift in Sources */,
+				EBFCF189230745DA005E738E /* EquipmentListViewController.swift in Sources */,
 				EBF1E2F322BBD72E00AFE58E /* LocationView.swift in Sources */,
 				EB62821A22028A80008CA480 /* MapViewController.swift in Sources */,
 				EB7AD69422A877FF00875075 /* Constants.swift in Sources */,
 				EB274DE822CE600900F2B503 /* MapModel.swift in Sources */,
+				EBFCF187230745C8005E738E /* SpaceTypeViewController.swift in Sources */,
 				EB71D99022A81AD1001C4E49 /* AddLocationView.swift in Sources */,
 				EB434318225C0FC7005E55AE /* LocationViewController.swift in Sources */,
+				EBBDD0BF2307410300BA5A22 /* EquipmentList.swift in Sources */,
+				EB994FFE230B0B6300F3198F /* ProfileView.swift in Sources */,
 				EBD83CAF221B48A000CBDB58 /* NavBarView.swift in Sources */,
 				EBE57490221505F500E5C9A6 /* SearchTextFieldViewController.swift in Sources */,
+				EBBDD0C12307411300BA5A22 /* AccessibilityTypes.swift in Sources */,
+				EBBDD0C7230743FA00BA5A22 /* MessageView.swift in Sources */,
+				EBFCF18B230745EE005E738E /* AccessibilityTypesViewController.swift in Sources */,
+				EBBDD0C52307430200BA5A22 /* MediaView.swift in Sources */,
 				EBE5748E2213950A00E5C9A6 /* ProfileViewController.swift in Sources */,
 				EB5F0E6322D7A0FA0015D68C /* SearchBarView.swift in Sources */,
 				EB5F0E6122D798B50015D68C /* FilterView.swift in Sources */,
-				EB62821C22028A8A008CA480 /* ListViewController.swift in Sources */,
+				EBBDD0C32307412200BA5A22 /* PermitType.swift in Sources */,
 				EB628218220285DE008CA480 /* MainViewController.swift in Sources */,
+				EBFCF18D230745FB005E738E /* PermitTypeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

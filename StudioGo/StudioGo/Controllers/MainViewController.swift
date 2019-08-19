@@ -36,12 +36,12 @@ class MainViewController: UITabBarController {
                 mediaViewController.tabBarItem.image = UIImage.fontAwesomeIcon(name: .playCircle, style: .regular, textColor: studioPink, size: iconSize)
         mediaViewController.tabBarItem.imageInsets = UIEdgeInsets(top: 6,left: 0,bottom: -6,right: 0)
 
-        let listViewController = ListViewController()
-        listViewController.tabBarItem.image = UIImage.fontAwesomeIcon(name: .envelope, style: .regular, textColor: studioPink, size: iconSize)
-        listViewController.tabBarItem.imageInsets = UIEdgeInsets(top: 6,left: 0,bottom: -6,right: 0)
+        let messagesViewController = MessagesViewController()
+        messagesViewController.tabBarItem.image = UIImage.fontAwesomeIcon(name: .envelope, style: .regular, textColor: studioPink, size: iconSize)
+        messagesViewController.tabBarItem.imageInsets = UIEdgeInsets(top: 6,left: 0,bottom: -6,right: 0)
 
        
-        let viewControllerList = [ mapViewController, mediaViewController, listViewController ]
+        let viewControllerList = [ mapViewController, mediaViewController, messagesViewController ]
         viewControllers = viewControllerList.map { MapNavigationController(rootViewController: $0)}
         tabBarColour()
         tabbarHeight()

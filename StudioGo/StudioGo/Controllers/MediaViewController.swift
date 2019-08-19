@@ -10,9 +10,12 @@ import UIKit
 
 class MediaViewController: UIViewController {
 
+    let MediaViewObj = MediaView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.red
+        self.view = MediaViewObj.createView()
+        
         // Do any additional setup after loading the view.
     }
 

@@ -36,7 +36,7 @@ class MapNavigationController: UINavigationController {
         postOptionsView = postOptionsObj.setupOptions(navController: self, addLocationAction: #selector(pushAddLocationVC), portfolioPost: #selector(pushAddLocationVC))
         self.view.addSubview(postOptionsView)
         
-        navBar = navBarObj.createView(target: self, leftButtonAction: #selector(pushProfile), rightButtonAction: #selector(self.showOptions))
+        navBar = navBarObj.createView(target: self, leftButtonAction: #selector(pushProfile), rightButtonAction: #selector(self.showOptions), logoAction: #selector(popToRoot))
         self.view.addSubview(navBar)
         
         NotificationCenter.default.addObserver(self, selector: #selector(submitLocationBtnClicked), name: NSNotification.Name(rawValue: "submitLocationNotification"), object: nil)
@@ -65,13 +65,13 @@ class MapNavigationController: UINavigationController {
     @objc func showOptions(sender:UIButton) {
         sender.setTitleColor(studioPink, for: .normal)
         postOptionsView = postOptionsObj.showOptions()
-        navBar = navBarObj.updateTargets(target: self, leftButtonAction: #selector(popController), rightButtonAction: #selector(hideOptions))
+        navBar = navBarObj.updateTargets(target: self, leftButtonAction: #selector(pushProfile), rightButtonAction: #selector(hideOptions))
     }
     
     @objc func hideOptions(sender:UIButton) {
         sender.setTitleColor(.white, for: .normal)
         postOptionsView = postOptionsObj.hideOptions()
-        navBar = navBarObj.updateTargets(target: self, leftButtonAction: #selector(popController), rightButtonAction: #selector(showOptions))
+        navBar = navBarObj.updateTargets(target: self, leftButtonAction: #selector(pushProfile), rightButtonAction: #selector(showOptions))
     }
     
     @objc func popController() {
@@ -104,6 +104,10 @@ class MapNavigationController: UINavigationController {
         hideOptions(sender: sender)
         navBar = navBarObj.updateTargets(target: self, leftButtonAction: #selector(popController), rightButtonAction: #selector(popToMap))
         self.pushViewController(AddLocationViewController(), animated: false)
+    }
+    
+    @objc func popToRoot() {
+        self.popToRootViewController(animated: true)
     }
     
     /*

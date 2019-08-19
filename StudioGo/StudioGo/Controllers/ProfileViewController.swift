@@ -9,15 +9,24 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-        
+    
+    let ProfileViewObj = ProfileView()
+
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(popController), name: NSNotification.Name(rawValue: "popProfileController"), object: nil)
+        
+        self.view = ProfileViewObj.createView()
+
 //not implemented
         // Do any additional setup after loading the view.
     }
     
-
+    @objc func popController() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     /*
     // MARK: - Navigation
 

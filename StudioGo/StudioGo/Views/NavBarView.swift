@@ -21,9 +21,10 @@ class NavBarView: UIView {
     var rightButton = UIButton()
     
     func createLeftButton(title: String?) -> UIButton {
-        let leftButton = UIButton.init(frame: CGRect.init(x: 22, y: 28, width: 32, height: 32))
-        leftButton.titleLabel?.font = UIFont.fontAwesome(ofSize: 28, style: .regular)
-        leftButton.setTitle(title, for: .normal)
+        let leftButton = UIButton.init(frame: CGRect.init(x: 10, y: 12, width: 60, height: 60))
+//        leftButton.titleLabel?.font = UIFont.fontAwesome(ofSize: 28, style: .regular)
+//        leftButton.setTitle(title, for: .normal)
+        leftButton.setImage(UIImage.init(named: "profileIcon"), for: .normal)
         return leftButton
     }
     
@@ -46,7 +47,7 @@ class NavBarView: UIView {
 //        MapNavigationController().pushProfile()
 //    }
     
-    func createView(target: UIViewController, leftButtonAction: Selector, rightButtonAction: Selector) -> UIView {
+    func createView(target: UIViewController, leftButtonAction: Selector, rightButtonAction: Selector, logoAction: Selector) -> UIView {
         self.frame = CGRect.init(x: 0, y: 0, width: _screenWidth, height: 72)
         self.backgroundColor = studioYellow
         self.isHidden = false
@@ -60,10 +61,13 @@ class NavBarView: UIView {
         self.addSubview(rightButton)
         
         let logo = UIImage.init(named: "StudioGoLogoNavBar")
-        let logoContainer = UIImageView.init(frame: CGRect.init(x: (_screenWidth/2)-25, y: 20, width: 50, height: 50))
+        let logoContainer = UIImageView.init(frame: CGRect.init(x: (_screenWidth/2)-50, y: 34, width: 100, height: 18))
         logoContainer.image = logo
-        self.addSubview(logoContainer)
-        
+        let logoButton = UIButton.init(frame: CGRect.init(x: (_screenWidth/2)-50, y: 34, width: 100, height: 18))
+        logoButton.setImage(logo, for: .normal)
+        logoButton.addTarget(nil, action: logoAction, for: .allEvents)
+        self.addSubview(logoButton)
+
         return self
     }
 

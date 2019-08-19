@@ -18,6 +18,7 @@ protocol MarkerInfo {
 struct Marker: MarkerInfo {
     var marker: GMSMarker
     var dataJson: JSON
+    var locationObj: Location
 }
 
 //let locationsModel = MapModelController.init(location: [])
@@ -25,6 +26,8 @@ struct Marker: MarkerInfo {
 class MapViewController: UIViewController, GMSMapViewDelegate {
     
     let locationsModel = MapModelController.shared
+    
+    let locationVC = LocationViewController();
     
     let _screenWidth = GlobalConstants.screenWidth
     let _screenHeight = GlobalConstants.screenHeight
@@ -46,7 +49,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
 //    let filterInfo = UIView()
     let markerInfoView = MarkerInfoView()
     
-    let searchFieldObj = SearchBarView(frame: CGRect.init(x: (GlobalConstants.screenWidth/2)-((GlobalConstants.screenWidth-40)/2), y: CGFloat.init(GlobalConstants.navBarHeight+16), width: GlobalConstants.screenWidth-40, height: CGFloat.init(32)), placeholder: NSAttributedString(string: "SEARCH", attributes: (GlobalConstants.greyTextRegularAttr as! [NSAttributedString.Key : Any])))
+    let searchFieldObj = SearchBarView(frame: CGRect.init(x: (GlobalConstants.screenWidth/2)-((GlobalConstants.screenWidth-40)/2), y: CGFloat.init(GlobalConstants.navBarHeight+16), width: GlobalConstants.screenWidth-40, height: CGFloat.init(32)), placeholder: NSAttributedString(string: "SEARCH", attributes: (GlobalConstants.searchBarAttributes as! [NSAttributedString.Key : Any])))
     var searchField = UITextField()
     
     let filterViewObj = FilterView(searchBarWidth: GlobalConstants.screenWidth-40, searchBarHeight: 32)
@@ -62,8 +65,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         // Do any additional setup after loading the view.
         
 //        searchFieldCreate()
-        searchFieldObj.setLeftViewImage(image: UIImage.fontAwesomeIcon(name: .search, style: .solid, textColor: .gray, size: CGSize.init(width: 20, height: 20)))
         searchField = searchFieldObj.setupView()
+        searchFieldObj.setLeftViewImage(image: UIImage.fontAwesomeIcon(name: .search, style: .solid, textColor: GlobalConstants.studioLightGrey, size: CGSize.init(width: 20, height: 20)))
         view.addSubview(searchField)
         filterInfoCreate()
         //        setupOptions()
@@ -80,11 +83,9 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
             do {
                 let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .alwaysMapped)
                 let jsonObj = try JSON(data: data)
-                
-                for (index,subJson):(String, JSON) in jsonObj {
 
+                for (index,subJson):(String, JSON) in jsonObj {
                     locationsModel.addLocation(location: jsonToLocation(json: subJson))
-//                    print(locationsModel)
                 }
                 
             } catch {
@@ -97,19 +98,23 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     func jsonToLocation(json: JSON) -> Location {
 //        let location: Location = Location(streetAddress: <#String#>)
         
+        let accessibility = json["accessibility"].stringValue
         let city = json["city"].stringValue
         let cost = json["cost"].stringValue
         let country = json["country"].stringValue
         let description = json["description"].stringValue
+        let equipment = json["equipment"].stringValue
         let hasPermit = json["hasPermit"].boolValue
-        let isPrivate = json["city"].boolValue
+        let images = json["images"].arrayObject as! Array<String>
+        print(images)
+        let isPrivate = json["isPrivate"].boolValue
+        let locationTitle = json["location"].stringValue
         let postalCode = json["postalCode"].stringValue
         let province = json["province"].stringValue
+        let spaceType = json["spaceType"].stringValue
         let streetAddress = json["streetAddress"].stringValue
-        let tags = json["tags"].stringValue
-        let website = json["website"].stringValue
 
-        return Location(city: city, cost: cost, country: country, description: description, hasPermit: hasPermit, isPrivate: isPrivate, postalCode: postalCode, province: province, streetAddress: streetAddress, tags: tags, website: website)
+        return Location(accessibility: accessibility, city: city, cost: cost, country: country, description: description, equipment: equipment, hasPermit: hasPermit, images: images, isPrivate: isPrivate, locationTitle: locationTitle, postalCode: postalCode, province: province, spaceType: spaceType, streetAddress: streetAddress)
     }
     
     func searchFieldCreate() {
@@ -229,7 +234,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
                         self.addLocation(json: subJson)
                         print("Index: ", index)
                     }
-                    //                    self.addLocation(address: "23 Regency View Heights, Maple, ON L6A3T9, Canada")
                 }
             } catch {
                 // handle error
@@ -244,7 +248,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         let gesture = UITapGestureRecognizer(target: self, action:  #selector(pushMoreInfo))
         for mark in markers {
             if (mark.marker == marker) {
-                markerInfoView.updateView(json: mark.dataJson)
+                markerInfoView.updateView(location: mark.locationObj)
                 markerInfoView.addGestureRecognizer(gesture)
                 view.addSubview(markerInfoView)
             }
@@ -257,8 +261,12 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         UIView.animate(withDuration: 0.2, animations: {
             self.markerInfoView.frame = CGRect(x: self.markerInfoView.frame.minX, y: self._screenHeight-10-60-128, width: self.markerInfoView.bounds.width, height: self.markerInfoView.bounds.height)
             marker.iconView?.transform = CGAffineTransform(scaleX: 3.0, y: 3.0);
-            
         })
+        UIView.animate(withDuration: 2.0, animations: {
+            mapView.animate(toZoom: 16.0)
+        })
+
+//        mapView.animate(with: GMSCameraUpdate.zoom(to: 16.0))
         
         let emptyView = UIView(frame: CGRect.init(x: 0, y: 0, width: 1, height: 1))
         emptyView.backgroundColor = .clear
@@ -281,11 +289,31 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         
         let json: JSON = JSON(receivedData)
         
+        let accessibility = json["accessibility"].stringValue
+        let city = json["city"].stringValue
+        let cost = json["cost"].stringValue
+        let country = json["country"].stringValue
+        let description = json["description"].stringValue
+        let equipment = json["equipment"].stringValue
+        let hasPermit = json["hasPermit"].boolValue
+        let images = json["images"].arrayObject as! Array<String>
+        print(images)
+        let isPrivate = json["isPrivate"].boolValue
+        let locationTitle = json["location"].stringValue
+        let postalCode = json["postalCode"].stringValue
+        let province = json["province"].stringValue
+        let spaceType = json["spaceType"].stringValue
+        let streetAddress = json["streetAddress"].stringValue
+        
+        let location = Location(accessibility: accessibility, city: city, cost: cost, country: country, description: description, equipment: equipment, hasPermit: hasPermit, images: images, isPrivate: isPrivate, locationTitle: locationTitle, postalCode: postalCode, province: province, spaceType: spaceType, streetAddress: streetAddress)
+        locationsModel.addLocation(location: location)
         addLocation(json: json)
     }
     
     func addLocation(json: JSON) {
 //        let json: JSON = JSON([ "title" : "Ben", "location" : "Private", "cost" : "benji", "permit":"Yes", "address":"23 Regency View Heights, Maple, ON L6A3T9, Canada", "website": "home.com", "contact": "hello@thisisfr.ee","description":"Home"])
+        let newLocation = Location.init(accessibility: json["accessibility"].stringValue, city: json["city"].stringValue, cost: json["cost"].stringValue, country: json["country"].stringValue, description: json["description"].stringValue, equipment: json["equipment"].stringValue, hasPermit: json["hasPermit"].boolValue, images: json["images"].arrayObject as! Array<String>, isPrivate: json["isPrivate"].boolValue, locationTitle: json["location"].stringValue, postalCode: json["postalCode"].stringValue, province: json["province"].stringValue, spaceType: json["spaceType"].stringValue, streetAddress: json["streetAddress"].stringValue)
+        
         var address = json["streetAddress"].string!
         address.append(contentsOf: ", ")
         address.append(contentsOf: json["city"].string!)
@@ -318,7 +346,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
             
             marker.map = self.gmsMapView
             
-            self.markers.append(Marker(marker: marker, dataJson: json))
+            self.markers.append(Marker(marker: marker, dataJson: json, locationObj: newLocation))
             
         }
     }
@@ -328,8 +356,15 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         self.navigationController?.pushViewController(ProfileViewController(), animated: true)
     }
     
-    @objc func pushMoreInfo() {
-        self.navigationController?.pushViewController(LocationViewController(), animated: true)
+    @objc func pushMoreInfo(sender: UIView) {
+        locationVC.initLocation = locationsModel.getLocationByTitle(title: markerInfoView.markerInfoTitle.text!.lowercased())
+        print("WHAT")
+
+        self.navigationController?.pushViewController(locationVC, animated: true)
+        let userInfo:[String:String] = ["locationTitle":markerInfoView.markerInfoTitle.text ?? "none"]
+        print("Name: ", markerInfoView.markerInfoTitle.text ?? "none")
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showMoreInfo"), object: nil, userInfo: userInfo)
+
     }
-    
+
 }

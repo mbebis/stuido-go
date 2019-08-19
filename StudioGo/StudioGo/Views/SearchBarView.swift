@@ -38,7 +38,7 @@ class SearchBarView: UITextField {
         
         self.leftView = UIView(frame: CGRect.init(x: 0, y: 0, width: 24, height: self.frame.height))
         
-        self.isUserInteractionEnabled = true
+        self.isUserInteractionEnabled = false
 //        self.font = UIFont.systemFont(ofSize: 15)
         self.borderStyle = UITextField.BorderStyle.roundedRect
         self.layer.borderColor = (UIColor.white).cgColor

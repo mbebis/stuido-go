@@ -23,10 +23,10 @@ class DropDownView: UIView {
     private let studioYellow = GlobalConstants.studioYellow
     private let studioLightGrey = GlobalConstants.studioLightGrey
     
-    let padding:CGFloat = 6
-    let sidePadding:CGFloat = 12
-    let extraPadding:CGFloat = 3
-    let singleLineHeight:CGFloat = 28
+    let padding:CGFloat = 10
+    let sidePadding:CGFloat = 14
+    let extraPadding:CGFloat = 5
+    let singleLineHeight:CGFloat = 32
     
     var textField = UITextField()
     let tableContainer = UIView()
@@ -48,8 +48,8 @@ class DropDownView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func createDropDownView(x: CGFloat, y: CGFloat, width: CGFloat) -> UIView {
-        self.frame = CGRect.init(x: x, y: y+padding, width: width, height: singleLineHeight)
+    func createDropDownView(x: CGFloat, y: CGFloat, width: CGFloat, height: CGFloat) -> UIView {
+        self.frame = CGRect.init(x: x, y: y+padding, width: width, height: height)
         buttonField()
         dropDownView()
         self.addSubview(yesNoContainer)
@@ -64,7 +64,7 @@ class DropDownView: UIView {
         btnField.backgroundColor = studioLightGrey
         btnField.layer.cornerRadius = btnField.frame.height/2
         
-        let attributedText = NSAttributedString(string: self.items[0], attributes: (GlobalConstants.blackTextLightAttr as! [NSAttributedString.Key : Any]))
+        let attributedText = NSAttributedString(string: self.items[0], attributes: (GlobalConstants.FieldAddLocationAttributes as! [NSAttributedString.Key : Any]))
         btnField.setAttributedTitle(attributedText, for: .normal)
         
         let rightViewIconView = UIImageView(frame: CGRect.init(x: btnField.frame.maxX - 24, y: btnField.frame.maxY-btnField.frame.height/2-20/2, width: 20, height: 20))
@@ -77,7 +77,7 @@ class DropDownView: UIView {
     func dropDownView() {
         let dropDownY:CGFloat = textField.frame.maxY
 
-        yesNoContainer.frame = CGRect.init(x: 0, y: dropDownY, width: _screenWidth/2-padding, height: 0)
+        yesNoContainer.frame = CGRect.init(x: 0, y: dropDownY, width: self.frame.width, height: 0)
         yesNoContainer.backgroundColor = .white
         yesNoContainer.clipsToBounds = true
         
@@ -85,6 +85,7 @@ class DropDownView: UIView {
             optionsBtns[i-1] = dropDownButton(text: self.items[i], y: (i != 1) ? (yesNoContainer.subviews.last!.frame.maxY) : CGFloat.zero)
             yesNoContainer.addSubview(optionsBtns[i-1])
         }
+//        yesNoContainer.frame = CGRect.init(x: yesNoContainer.frame.minX, y: yesNoContainer.frame.minY, width: yesNoContainer.frame.width, height: yesNoContainer.subviews.last!.frame.maxY)
 //        yesBtn = dropDownButton(text: self.items[1], y: 0)
 //        yesNoContainer.addSubview(yesBtn)
 //
@@ -108,7 +109,7 @@ class DropDownView: UIView {
     
     @objc func updateDropDown(sender:UIButton) {
         let text:String = sender.title(for: .normal) ?? "SELECT ONE"
-        let attributedText = NSAttributedString(string: text, attributes: (GlobalConstants.blackTextLightAttr as! [NSAttributedString.Key : Any]))
+        let attributedText = NSAttributedString(string: text, attributes: (GlobalConstants.FieldAddLocationAttributes as! [NSAttributedString.Key : Any]))
         btnField.setAttributedTitle(attributedText, for: .normal)
         
         hideDropDownView()
@@ -116,7 +117,7 @@ class DropDownView: UIView {
     
     @objc func showDropDownView() {
         UIView.animate(withDuration: 0.2, animations: {
-            self.yesNoContainer.frame = CGRect.init(x: 0, y: self.btnField.frame.maxY, width: self._screenWidth/2-self.padding*2, height: self.yesNoContainer.subviews.last!.frame.maxY)
+            self.yesNoContainer.frame = CGRect.init(x: 0, y: self.btnField.frame.maxY, width: self.yesNoContainer.frame.width, height: self.yesNoContainer.subviews.last!.frame.maxY)
         })
         self.frame = CGRect.init(x: self.frame.minX, y: self.frame.minY, width: self.frame.width, height: self.yesNoContainer.frame.maxY)
         btnField.removeTarget(nil, action: nil, for: .allEvents)
@@ -127,7 +128,7 @@ class DropDownView: UIView {
     @objc func hideDropDownView() {
         
         UIView.animate(withDuration: 0.2, animations: {
-            self.yesNoContainer.frame = CGRect.init(x: 0, y: self.btnField.frame.maxY, width: self._screenWidth/2-self.padding*2, height: 0)
+            self.yesNoContainer.frame = CGRect.init(x: 0, y: self.btnField.frame.maxY, width: self.yesNoContainer.frame.width, height: 0)
         })
         self.frame = CGRect.init(x: self.frame.minX, y: self.frame.minY, width: self.frame.width, height: singleLineHeight)
         btnField.removeTarget(nil, action: nil, for: .allEvents)
