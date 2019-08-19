@@ -23,8 +23,19 @@ class AddLocationViewController: UIViewController {
         self.view = addLocationView
 
         NotificationCenter.default.addObserver(self, selector: #selector(submitButtonClicked), name: NSNotification.Name(rawValue: "submitLocationNotification"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(pushSpaceTypeVC), name: NSNotification.Name(rawValue: "pushSpaceTypeVC"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(pushAccessibilityTypesVC), name: NSNotification.Name(rawValue: "pushAccessibilityTypesVC"), object: nil)
 
         // Do any additional setup after loading the view.
+    }
+    
+    @objc func pushSpaceTypeVC() {
+        self.navigationController?.pushViewController(SpaceTypeViewController(), animated: true)
+    }
+    
+    @objc func pushAccessibilityTypesVC() {
+        self.navigationController?.pushViewController(AccessibilityTypesViewController(), animated: true)
     }
     
     @objc func submitButtonClicked(data: NSNotification)

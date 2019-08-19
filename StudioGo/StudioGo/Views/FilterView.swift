@@ -30,12 +30,12 @@ class FilterView: UIView {
 //   private  let distanceSlider = slider?
     
     private let isPrivateLabel = UILabel()
-    private let isPrivateDropDownObj = DropDownView(items: ["PUBLIC OR PRIVATE", "PUBLIC", "PRIVATE"])
+    private let isPrivateDropDownObj = DropDownView(items: ["PUBLIC OR PRIVATE", "PUBLIC", "PRIVATE"], addIcon: 0)
     private let typeLabel = UILabel()
-    private let typeDropDownObj = DropDownView(items: ["Type", "Studio"])
+    private let typeDropDownObj = DropDownView(items: ["Type", "Studio"], addIcon: 0)
     
     private let mediumLabel = UILabel()
-    private let mediumDropDownObj = DropDownView(items: ["Medium", "Photography"])
+    private let mediumDropDownObj = DropDownView(items: ["Medium", "Photography"], addIcon: 0)
     
     private let tagsLabel = UILabel()
     private let tagsField = UITextField()

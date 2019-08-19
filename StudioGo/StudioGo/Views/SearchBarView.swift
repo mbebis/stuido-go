@@ -51,6 +51,7 @@ class SearchBarView: UITextField {
         self.clearButtonMode = UITextField.ViewMode.whileEditing
         self.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
         self.delegate = self as? UITextFieldDelegate
+        self.layer.opacity = 0.5
         
         return self
     }

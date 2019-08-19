@@ -161,6 +161,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         filterButton.layer.cornerRadius = filterButton.bounds.height / 2.0
         filterButton.layer.masksToBounds = true
         filterButton.setAttributedTitle(filterText, for: .normal)
+        filterButton.layer.opacity = 0.4
 //        filterButton.attr
 //        filterButton.setTitle("FILTER", for: .normal)
 //        filterButton.setTitleColor(.white, for: .normal)
@@ -172,6 +173,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         locationType.layer.masksToBounds = true
         locationType.textAlignment = .center
         locationType.attributedText = locationTypeText
+        locationType.layer.opacity = 0.5
 
 //        locationType.text = "STUDIO"
 //        locationType.textColor = .black
@@ -183,6 +185,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         radius.layer.masksToBounds = true
         radius.textAlignment = .center
         radius.attributedText = radiusText
+        radius.layer.opacity = 0.5
 
 //        radius.text = "DISTANCE 80KM"
 //        radius.textColor = .black

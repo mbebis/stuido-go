@@ -35,11 +35,14 @@ class DropDownView: UIView {
     var btnField = UIButton()
     let yesNoContainer = UIView()
     var optionsBtns:[UIButton]
+    
+    var addIcon: Int = 0
 //    var yesBtn = UIButton()
 //    var noBtn = UIButton()
     
-    init(items: [String]) {
+    init(items: [String], addIcon:Int) {
         self.items = items
+        self.addIcon = addIcon
         self.optionsBtns = Array.init(repeating: UIButton(), count: self.items.count-1)
         super.init(frame: CGRect.init(x: 0, y: 0, width: 0, height: 0))
     }
@@ -59,6 +62,7 @@ class DropDownView: UIView {
     }
     
     func buttonField() {
+        
         btnField.frame = CGRect.init(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
         
         btnField.backgroundColor = studioLightGrey
@@ -72,6 +76,38 @@ class DropDownView: UIView {
         btnField.addSubview(rightViewIconView)
         btnField.addTarget(self, action: #selector(showDropDownView), for: UIControl.Event.touchUpInside)
         
+        if (addIcon == 1) {
+            let spaceTypeMoreInfoIcon = addMoreInfoIcon(x: btnField.frame.minX + 6, y: btnField.frame.maxY-btnField.frame.height/2-6, moreInfoPage: #selector(pushSpaceTypeVC))
+            btnField.addSubview(spaceTypeMoreInfoIcon)
+        }
+        
+        if (addIcon == 2) {
+            let spaceTypeMoreInfoIcon = addMoreInfoIcon(x: btnField.frame.minX + 6, y: btnField.frame.maxY-btnField.frame.height/2-6, moreInfoPage: #selector(pushAccessibilityTypesVC))
+            btnField.addSubview(spaceTypeMoreInfoIcon)
+        }
+
+        
+    }
+    
+    @objc func pushAccessibilityTypesVC(action: Selector) {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pushAccessibilityTypesVC"), object: nil)
+    }
+    
+    @objc func pushSpaceTypeVC() {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pushSpaceTypeVC"), object: nil)
+    }
+    
+    func addMoreInfoIcon(x: CGFloat, y: CGFloat, moreInfoPage: Selector) -> UIButton {
+        let moreInfoIconSize:CGFloat = 10
+        
+        let moreInfoIcon = UIButton(frame: CGRect.init(x: x-moreInfoIconSize/2, y: y-moreInfoIconSize/2, width: moreInfoIconSize*2, height: moreInfoIconSize*2))
+        moreInfoIcon.titleLabel?.font = UIFont.fontAwesome(ofSize: moreInfoIconSize, style: .solid)
+        moreInfoIcon.setTitle(String.fontAwesomeIcon(name: .questionCircle), for: .normal)
+        moreInfoIcon.setTitleColor(studioGrey, for: .normal)
+        
+        moreInfoIcon.addTarget(self, action: moreInfoPage, for: .touchUpInside)
+        
+        return moreInfoIcon
     }
     
     func dropDownView() {

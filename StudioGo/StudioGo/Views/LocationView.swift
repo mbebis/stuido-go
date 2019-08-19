@@ -246,12 +246,14 @@ class LocationView: UIView {
         var icons: Array<UIImageView> = []
         let y = view.subviews.last!.frame.maxY+1+padding
         for i in 1...length {
-//            let xPos:CGFloat = (CGFloat(i-3)*size)-(size/2)
-            var xPos:CGFloat = (CGFloat(i-(length/2))*size)-(size/2)
-            if (i%2 == 1){
-                xPos = (CGFloat(i-(length/2))*size)-(size/2)
-            } 
-            icons.append(UIImageView(frame: CGRect.init(x: screenXCenter+xPos, y: y, width: size, height: size)))
+            let xPos:CGFloat = (CGFloat(i-3)*size)-(size/2)
+            let diff = 5-length
+            let offset = CGFloat(diff)*(size/2)
+//            var xPos:CGFloat = 0
+//            if (i%2 == 1){
+//                xPos = (CGFloat(i-(length/2))*size)-(size/2)
+//            }
+            icons.append(UIImageView(frame: CGRect.init(x: screenXCenter+xPos+offset, y: y, width: size, height: size)))
             icons[i-1].image = symbolImage
             view.addSubview(icons[i-1])
         }
@@ -516,7 +518,7 @@ class LocationView: UIView {
         let moreInfoIconSize:CGFloat = 10
         
         let moreInfoIconX:CGFloat = (screenXCenter+(typeLabelWidth/2)-moreInfoIconSize)
-        let moreInfoIcon = UIButton(frame: CGRect.init(x: moreInfoIconX+moreInfoIconSize, y: view.subviews.last!.frame.maxY+8, width: moreInfoIconSize, height: moreInfoIconSize))
+        let moreInfoIcon = UIButton(frame: CGRect.init(x: moreInfoIconX+moreInfoIconSize-moreInfoIconSize/2, y: view.subviews.last!.frame.maxY+8-moreInfoIconSize/2, width: moreInfoIconSize*2, height: moreInfoIconSize*2))
         moreInfoIcon.titleLabel?.font = UIFont.fontAwesome(ofSize: moreInfoIconSize, style: .solid)
         moreInfoIcon.setTitle(String.fontAwesomeIcon(name: .questionCircle), for: .normal)
         moreInfoIcon.setTitleColor(studioGrey, for: .normal)

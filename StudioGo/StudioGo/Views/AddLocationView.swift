@@ -10,6 +10,8 @@ import UIKit
 
 class AddLocationView: UIView, UITextFieldDelegate {
 
+    private let screenXCenter = Screen.width/2
+
     private let _screenWidth = GlobalConstants.screenWidth
     private let _screenHeight = GlobalConstants.screenHeight
     
@@ -27,14 +29,14 @@ class AddLocationView: UIView, UITextFieldDelegate {
     let singleLineHeight:CGFloat = 32
     let smallFieldHeight:CGFloat = 26
 
-    let provinceDropDownObj = DropDownView(items: ["PROVINCE*", "ONTARIO"])
-    let countryDropDownObj = DropDownView(items: ["COUNTRY*", "CANADA"])
+    let provinceDropDownObj = DropDownView(items: ["PROVINCE*", "ONTARIO"], addIcon: 0)
+    let countryDropDownObj = DropDownView(items: ["COUNTRY*", "CANADA"], addIcon: 0)
     
-    let publicPrivateDropDownObj = DropDownView(items: ["PUBLIC OR PRIVATE*", "PUBLIC", "PRIVATE"])
-    let permitDropDownObj = DropDownView(items: ["PERMIT?*", "REQUIRED", "NONE"])
-    let costDropDownObj = DropDownView(items: ["PRICE*", "$", "$$", "$$$", "$$$$", "$$$$$"])
-    let spaceTypeDropDownObj = DropDownView(items: ["TYPE OF SPACE*", "PERSONAL", "COLLABORATIVE", "PRESENTATION", "MAKING", "INTERMISSION"])
-    let accessibilityDropDownObj = DropDownView(items: ["ACCESSIBILITY*", "NOT ACCESSIBLE", "SOMEWHAT ACCESSIBILE", "ACCESSIBILE"])
+    let publicPrivateDropDownObj = DropDownView(items: ["PUBLIC OR PRIVATE*", "PUBLIC", "PRIVATE"], addIcon: 0)
+    let permitDropDownObj = DropDownView(items: ["PERMIT?*", "REQUIRED", "NONE"], addIcon: 0)
+    let costDropDownObj = DropDownView(items: ["PRICE*", "$", "$$", "$$$", "$$$$", "$$$$$"], addIcon: 0)
+    let spaceTypeDropDownObj = DropDownView(items: ["TYPE OF SPACE*", "PERSONAL", "COLLABORATIVE", "PRESENTATION", "MAKING", "INTERMISSION"], addIcon: 1)
+    let accessibilityDropDownObj = DropDownView(items: ["ACCESSIBILITY*", "NOT ACCESSIBLE", "SOMEWHAT ACCESSIBILE", "ACCESSIBILE"], addIcon: 2)
     
     var locationNameField = UITextField()
     var streetNumberField = UITextField()
@@ -207,6 +209,23 @@ class AddLocationView: UIView, UITextFieldDelegate {
         return self
     }
     
+    @objc func pushSpaceTypeVC() {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pushSpaceTypeVC"), object: nil)
+    }
+    
+    func addMoreInfoIcon(x: CGFloat, y: CGFloat, moreInfoPage: Selector) -> UIButton {
+        let moreInfoIconSize:CGFloat = 10
+        
+        let moreInfoIcon = UIButton(frame: CGRect.init(x: x, y: y, width: moreInfoIconSize, height: moreInfoIconSize))
+        moreInfoIcon.titleLabel?.font = UIFont.fontAwesome(ofSize: moreInfoIconSize, style: .solid)
+        moreInfoIcon.setTitle(String.fontAwesomeIcon(name: .questionCircle), for: .normal)
+        moreInfoIcon.setTitleColor(studioGrey, for: .normal)
+        
+        moreInfoIcon.addTarget(self, action: moreInfoPage, for: .touchUpInside)
+        
+        return moreInfoIcon
+    }
+    
     func uploadImageButton(view: UIView) -> UIButton {
         let cellPadding: CGFloat = 2
         let width = (view.frame.width - (cellPadding*3*2))/4
@@ -254,6 +273,7 @@ class AddLocationView: UIView, UITextFieldDelegate {
         textField.textColor = GlobalConstants.studioGrey
         textField.backgroundColor = GlobalConstants.studioLightGrey
         textField.textAlignment = .center
+        textField.autocapitalizationType = .allCharacters
 ////        textField.tintColor = .white
 //        textField.borderStyle = UITextField.BorderStyle.roundedRect
 //        textField.layer.backgroundColor = (UIColor.lightGray).cgColor
@@ -333,7 +353,7 @@ class AddLocationView: UIView, UITextFieldDelegate {
             
             let streetAddress = streetNumber + " " + street
 
-            let userInfo:[String: Any?] = ["accessibility": accessibility, "city": city, "cost": cost, "country": country, "description": description, "hasPermit": hasPermit, "images":["LocationBanner"], "isPrivate": isPrivate, "location": locationTitle, "postalCode": postalCode, "province": province, "spaceType": spaceType, "streetAddress": streetAddress, "equipment": equipment]
+            let userInfo:[String: Any?] = ["accessibility": accessibility, "city": city, "cost": cost, "country": country, "description": description, "hasPermit": hasPermit, "images":["Daniels"], "isPrivate": isPrivate, "location": locationTitle, "postalCode": postalCode, "province": province, "spaceType": spaceType, "streetAddress": streetAddress, "equipment": equipment]
             print(userInfo)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "submitLocationNotification"), object: nil, userInfo: userInfo as [AnyHashable : Any])
         }

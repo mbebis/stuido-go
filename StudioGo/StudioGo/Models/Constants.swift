@@ -24,6 +24,7 @@ struct GlobalConstants {
     static let lightFont:UIFont = UIFont(name: "Montserrat-Regular", size: 8)!
     
     static let searchBarFont:UIFont = UIFont(name: "Montserrat-Regular", size: 16)!
+    static let markerInfoTitleFont:UIFont = UIFont(name: "Montserrat-Bold", size: 16)!
 
     static let smallLocationFont:UIFont = UIFont(name: "Montserrat-Medium", size: 8)!
     static let regularLocationFont:UIFont = UIFont(name: "Montserrat-Medium", size: 10)!
@@ -32,10 +33,10 @@ struct GlobalConstants {
     static let btnLocationFont:UIFont = UIFont(name: "Montserrat-Bold", size: 12)!
     static let RegularBtnLocationFont:UIFont = UIFont(name: "Montserrat-Bold", size: 8)!
     
-    static let titleAddLocationFont:UIFont = UIFont(name: "Montserrat-Medium", size: 16)!
-    static let subtitleAddLocationFont:UIFont = UIFont(name: "Montserrat-Light", size: 12)!
-    static let fieldAddLocationFont:UIFont = UIFont(name: "Montserrat-Light", size: 10)!
-    static let fieldTypingAddLocationFont:UIFont = UIFont(name: "Montserrat-Light", size: 14)!
+    static let titleAddLocationFont:UIFont = UIFont(name: "Montserrat-SemiBold", size: 16)!
+    static let subtitleAddLocationFont:UIFont = UIFont(name: "Montserrat-Regular", size: 12)!
+    static let fieldAddLocationFont:UIFont = UIFont(name: "Montserrat-Regular", size: 10)!
+    static let fieldTypingAddLocationFont:UIFont = UIFont(name: "Montserrat-Regular", size: 10)!
     static let tagAddLocationFont:UIFont = UIFont(name: "Montserrat-Light", size: 10)!
 //    static let smallAddLocationFont:UIFont = UIFont(name: "Montserrat-Medium", size: 8)!
 
@@ -162,7 +163,7 @@ struct GlobalConstants {
     static let MarkerInfoTitleAttributes: NSDictionary = [
         NSAttributedString.Key.kern:CGFloat(2.0),
         NSAttributedString.Key.foregroundColor:studioGrey,
-        NSAttributedString.Key.font:searchBarFont
+        NSAttributedString.Key.font:markerInfoTitleFont
     ]
     static let MarkerInfoAttributes: NSDictionary = [
         NSAttributedString.Key.kern:CGFloat(2.0),

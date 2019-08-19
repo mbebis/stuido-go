@@ -24,10 +24,10 @@ class ProfileView: UIView {
     
     func createView() -> UIView {
         
-        imageView.frame = CGRect.init(x: self.frame.minX, y: self.frame.minY-30, width: self.frame.width, height: self.frame.height)
+        imageView.frame = CGRect.init(x: self.frame.minX, y: self.frame.minY-40, width: self.frame.width, height: self.frame.height)
         imageView.image = UIImage(named: "ProfilePage")
         
-        popButton.frame = CGRect.init(x: 0, y: GlobalConstants.navBarHeight, width: 50, height: 50)
+        popButton.frame = CGRect.init(x: 0, y: GlobalConstants.navBarHeight, width: 50, height: 70)
         //        popButton.backgroundColor = .black
         popButton.addTarget(self, action: #selector(popController), for: .touchUpInside)
         

@@ -116,7 +116,7 @@ class PostOptionsView: UIView {
         let buttonHeight: CGFloat = 36
         let buttonSpacing: CGFloat = 12
         UIView.animate(withDuration: 0.2, animations: {
-            let optionsViewFrame = CGRect.init(x: self._screenWidth/2-buttonWidth/2, y: self._screenHeight - 160, width: buttonWidth, height: buttonHeight*2+buttonSpacing)
+            let optionsViewFrame = CGRect.init(x: self._screenWidth/2-buttonWidth/2, y: self._screenHeight - 170, width: buttonWidth, height: buttonHeight*2+buttonSpacing)
             self.optionsView.frame = optionsViewFrame
             self.overlay.backgroundColor = UIColor.init(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.3)
             let frame = CGRect.init(x: 0, y: 0, width: self._screenWidth, height: self._screenHeight)

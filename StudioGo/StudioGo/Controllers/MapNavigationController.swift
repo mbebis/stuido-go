@@ -84,7 +84,7 @@ class MapNavigationController: UINavigationController {
     }
     
     @objc func submitLocationBtnClicked() {
-        navBar = navBarObj.updateTargets(target: self, leftButtonAction: #selector(popController), rightButtonAction: #selector(showOptions))
+        navBar = navBarObj.updateTargets(target: self, leftButtonAction: #selector(pushProfile), rightButtonAction: #selector(showOptions))
         navBarObj.resetButtonView()
         popController()
     }
@@ -102,7 +102,7 @@ class MapNavigationController: UINavigationController {
     
     @objc func pushAddLocationVC(sender: UIButton) {
         hideOptions(sender: sender)
-        navBar = navBarObj.updateTargets(target: self, leftButtonAction: #selector(popController), rightButtonAction: #selector(popToMap))
+        navBar = navBarObj.updateTargets(target: self, leftButtonAction: #selector(pushProfile), rightButtonAction: #selector(popToMap))
         self.pushViewController(AddLocationViewController(), animated: false)
     }
     
