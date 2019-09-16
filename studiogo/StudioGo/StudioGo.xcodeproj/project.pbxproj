@@ -42,6 +42,7 @@
 		EB71D98E22A8140B001C4E49 /* AddLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB71D98D22A8140B001C4E49 /* AddLocationViewController.swift */; };
 		EB71D99022A81AD1001C4E49 /* AddLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB71D98F22A81AD1001C4E49 /* AddLocationView.swift */; };
 		EB7AD69422A877FF00875075 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7AD69322A877FF00875075 /* Constants.swift */; };
+		EB8745FD232FC6E3000A2C8A /* MapsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8745FC232FC6E3000A2C8A /* MapsKey.swift */; };
 		EB994FFE230B0B6300F3198F /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB994FFD230B0B6300F3198F /* ProfileView.swift */; };
 		EBBDD0BD230740E600BA5A22 /* SpaceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBDD0BC230740E600BA5A22 /* SpaceType.swift */; };
 		EBBDD0BF2307410300BA5A22 /* EquipmentList.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBDD0BE2307410300BA5A22 /* EquipmentList.swift */; };
@@ -148,6 +149,7 @@
 		EB71D98D22A8140B001C4E49 /* AddLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationViewController.swift; sourceTree = "<group>"; };
 		EB71D98F22A81AD1001C4E49 /* AddLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationView.swift; sourceTree = "<group>"; };
 		EB7AD69322A877FF00875075 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		EB8745FC232FC6E3000A2C8A /* MapsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsKey.swift; sourceTree = "<group>"; };
 		EB994FFD230B0B6300F3198F /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		EBBDD0BC230740E600BA5A22 /* SpaceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceType.swift; sourceTree = "<group>"; };
 		EBBDD0BE2307410300BA5A22 /* EquipmentList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentList.swift; sourceTree = "<group>"; };
@@ -363,6 +365,7 @@
 			isa = PBXGroup;
 			children = (
 				EB7AD69322A877FF00875075 /* Constants.swift */,
+				EB8745FC232FC6E3000A2C8A /* MapsKey.swift */,
 				EB274DE722CE600900F2B503 /* MapModel.swift */,
 				EBD83CB2222F49D400CBDB58 /* locations.json */,
 			);
@@ -646,6 +649,7 @@
 			files = (
 				EBD83CA7221B380200CBDB58 /* MarkerInfoView.swift in Sources */,
 				EB6281F822028089008CA480 /* AppDelegate.swift in Sources */,
+				EB8745FD232FC6E3000A2C8A /* MapsKey.swift in Sources */,
 				EBFCF18523074544005E738E /* MessagesViewController.swift in Sources */,
 				EB62821E22028A93008CA480 /* MediaViewController.swift in Sources */,
 				EB71D98E22A8140B001C4E49 /* AddLocationViewController.swift in Sources */,

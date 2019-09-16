@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        GMSServices.provideAPIKey("AIzaSyA9ov-IXDZjOVn_JOZweEjLGjB2GAX7usw")
+        GMSServices.provideAPIKey(MapsKey().googleMapsKey)
         
         // Initialize the window
         window = UIWindow.init(frame: UIScreen.main.bounds)
